@@ -1,0 +1,90 @@
+@import "../../../scss/variables";
+@import "../../../scss/utilities";
+
+.home {
+	.nav {
+		width: 98%;
+		margin: 0 auto;
+		padding: $spacing-4 0;
+		@include flex($justify: space-between);
+		@include tab-screen {
+			width: 92%;
+		}
+
+		.brand {
+			width: max-content;
+			padding: $spacing-2;
+			@include flex;
+
+			.brandIcon {
+				margin-right: $spacing-3;
+			}
+
+			.brandName {
+				font-family: Billabong;
+				@include flex;
+				margin: $spacing-1 0 0;
+				color: $theme-main-800;
+			}
+		}
+
+		.navLinks {
+			@include flex;
+
+			.navItem {
+				padding: $spacing-2;
+				margin: 0 $spacing-2;
+			}
+		}
+	}
+
+	main {
+		@include grid(center, center);
+		width: 92%;
+		margin: $spacing-12 auto;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		grid-row-gap: $spacing-24;
+
+		@include tab-screen {
+			width: 92%;
+			margin: $spacing-12 0 0 auto;
+			grid-template-columns: repeat(2, 50%);
+			grid-row-gap: 0;
+		}
+
+		.imageArea {
+			@include flex;
+			justify-content: center;
+
+			.hdImage {
+				width: 90%;
+			}
+
+			@include tab-screen {
+				order: 1;
+
+				.hdImage {
+					width: 100%;
+				}
+			}
+		}
+
+		.infoArea {
+			width: 100%;
+
+			@include tab-screen {
+				width: max-content;
+				margin-left: $spacing-14;
+			}
+
+			.mainText {
+				margin-bottom: $spacing-8;
+			}
+
+			.auxText {
+				margin-bottom: $spacing-12;
+				color: $gray-200;
+			}
+		}
+	}
+}
