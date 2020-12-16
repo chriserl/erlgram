@@ -1,0 +1,62 @@
+@import "../../scss/variables";
+@import "../../scss/utilities";
+
+.nav {
+	width: 94%;
+	margin: $spacing-6 auto;
+	@include flex($justify: space-between);
+	flex-flow: row wrap;
+
+	@include tab-screen {
+		width: 94%;
+		@include flex($justify: start);
+	}
+
+	.brand {
+		width: max-content;
+		padding: $spacing-2;
+		@include flex;
+
+		.brandIcon {
+			margin-right: $spacing-3;
+		}
+
+		.brandName {
+			font-family: Billabong;
+			@include flex;
+			margin: $spacing-1 0 0;
+			color: $theme-main-800;
+		}
+	}
+
+	.navForm {
+		flex-basis: 90%;
+		order: 2;
+		margin: 0 auto;
+		margin-top: $spacing-12;
+
+		@include tab-screen {
+			order: 0;
+			flex-basis: 25%;
+			margin: 0;
+			margin-left: $spacing-18;
+		}
+	}
+
+	.navItems {
+		@include flex;
+
+		@include tab-screen {
+			margin-left: auto;
+		}
+
+		.navItem {
+			list-style-type: none;
+			margin: 0 $spacing-2;
+		}
+
+		button {
+			margin-left: $spacing-4;
+		}
+	}
+}
