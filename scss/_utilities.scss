@@ -90,9 +90,14 @@
 	line-height: calc(1rem * 1.8);
 }
 
-@mixin plb {
+@mixin plm {
 	@include pl;
 	font-family: Poppins;
+}
+
+@mixin plb {
+	@include pl;
+	font-family: PoppinsMedium;
 }
 
 @mixin ps {
@@ -100,9 +105,14 @@
 	line-height: calc(0.88rem * 1.64);
 }
 
-@mixin psb {
+@mixin psm {
 	@include ps;
 	font-family: Poppins;
+}
+
+@mixin psb {
+	@include ps;
+	font-family: PoppinsMedium;
 }
 
 @mixin px {
@@ -110,9 +120,14 @@
 	line-height: calc(0.8rem * 1.56);
 }
 
-@mixin pxb {
+@mixin pxm {
 	@include px;
 	font-family: Poppins;
+}
+
+@mixin pxb {
+	@include px;
+	font-family: PoppinsMedium;
 }
 
 //Icons

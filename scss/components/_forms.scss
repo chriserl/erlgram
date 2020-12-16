@@ -9,7 +9,7 @@
 		padding: $spacing-2 $spacing-6;
 		background: transparent;
 		color: $theme-main-800;
-		@include ps;
+		@include psm;
 
 		&::placeholder {
 			@include px;

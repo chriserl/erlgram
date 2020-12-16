@@ -1,13 +1,14 @@
 .feed-card {
 	width: 100%;
 	height: max-content;
-	margin: $spacing-18 0;
+	margin: $spacing-14 0;
 	display: inline-block;
 
 	.post-user {
 		@include flex;
 		margin-bottom: $spacing-5;
 		margin-left: $spacing-2;
+		color: $gray-400;
 
 		.post-user-image {
 			width: $spacing-7;
@@ -27,7 +28,7 @@
 	.feed-controls {
 		width: 95%;
 		margin: 0 auto;
-		margin-top: $spacing-4;
+		margin-top: $spacing-2;
 		@include flex;
 		justify-content: space-between;
 
@@ -36,10 +37,15 @@
 
 			.like {
 				@include flex;
-				margin-right: $spacing-8;
+				margin-right: $spacing-4;
 
 				.like-icon {
 					margin-right: $spacing-1;
+					color: $theme-red;
+				}
+
+				.link-count {
+					color: $gray-200;
 				}
 			}
 
@@ -48,6 +54,11 @@
 
 				.comment-icon {
 					margin-right: $spacing-1;
+					color: $theme-yellow;
+				}
+
+				.comment-count {
+					color: $gray-200;
 				}
 			}
 		}

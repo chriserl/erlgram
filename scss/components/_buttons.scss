@@ -8,39 +8,55 @@
 }
 
 .primary-icon-button {
+	@include flex(row, center, center);
 	@extend .button;
-	padding: 0.24rem;
-	border-radius: $spacing-4;
-	color: $theme-main-100;
-	background: $theme-main;
+	padding: 0.4rem;
+	border-radius: 50%;
+	border: 1.4px solid hsl(22, 94%, 90%);
 	transition: all 0.25s ease;
+
+	span {
+		padding: $spacing-2;
+		border-radius: 50%;
+		color: $theme-main-100;
+		background: $theme-gradient;
+	}
 
 	&:hover {
 		color: $theme-main-900;
-		background: $theme-main-300;
+		border: 1.4px solid hsl(22, 94%, 50%);
+
+		span {
+			box-shadow: -8px 12px 24px hsl(22, 94%, 96%);
+		}
 	}
 }
 
 .light-icon-button {
 	@extend .button;
-	padding: 0.24rem;
+	padding: 0.32rem;
 	border-radius: $spacing-4;
-	color: $theme-main-900;
-	background: $theme-main-300;
+	border: 1.8px solid hsl(16, 12%, 97%);
+	background-color: white;
+	color: hsl(16, 100%, 18%);
 	transition: all 0.25s ease;
+
+	&:hover {
+		box-shadow: 8px 12px 12px 4px hsl(16, 24%, 96%);
+		color: hsl(16, 100%, 50%);
+	}
 }
 
 //Text Buttons
 .primary-button {
 	@extend .button;
 	padding: $spacing-2 $spacing-7;
-	border-radius: $spacing-4;
+	border-radius: $spacing-3;
 	background: $theme-gradient;
 	color: $theme-main-100;
 
 	&:hover {
-		background: $theme-main;
-		color: $theme-secondary-100;
+		background: $theme-gradient-reversed;
 	}
 }
 
@@ -48,11 +64,10 @@
 	@extend .button;
 	padding: $spacing-2 $spacing-7;
 	border-radius: $spacing-4;
-	background: $theme-secondary-200;
-	color: $theme-secondary;
+	background: hsl(12, 100%, 96%);
+	color: $theme-yellow;
 
 	&:hover {
-		background: $theme-secondary;
-		color: $theme-secondary-100;
+		box-shadow: 8px 16px 12px $theme-main-200;
 	}
 }

@@ -1,27 +1,36 @@
-$theme-main-900: hsl(256, 88%, 8%);
-$theme-main-800: hsl(256, 88%, 12%);
-$theme-main: hsl(256, 88%, 50%);
-$theme-main-300: hsl(256, 88%, 94%);
-$theme-main-200: hsl(256, 88%, 97%);
-$theme-main-100: hsl(256, 88%, 99%);
+$theme-main-900: hsl(16, 100%, 8%);
+$theme-main-800: hsl(16, 12%, 24%);
+$theme-main-700: hsl(16, 16%, 28%);
+$theme-main-600: hsl(16, 16%, 32%);
+$theme-main: hsl(16, 100%, 50%);
+$theme-main-300: hsl(16, 100%, 91%);
+$theme-main-300: hsl(16, 100%, 94%);
+$theme-main-200: hsl(16, 12%, 97%);
+$theme-main-100: hsl(16, 100%, 99%);
 
-$theme-secondary: hsl(276, 90%, 50%);
-$theme-secondary-400: hsl(276, 40%, 80%);
-$theme-secondary-300: hsl(276, 40%, 88%);
-$theme-secondary-200: hsl(276, 40%, 94%);
-$theme-secondary-100: hsl(276, 40%, 99%);
+$theme-red: hsl(12, 100%, 50%);
+$theme-orange: hsl(16, 100%, 50%);
+$theme-yellow: hsl(32, 100%, 50%);
 
 $theme-gradient: linear-gradient(
-	to right,
-	hsl(261, 90%, 50%),
-	hsl(276, 90%, 50%)
+	128deg,
+	hsl(12, 100%, 50%),
+	hsl(16, 100%, 50%),
+	hsl(32, 100%, 50%)
+);
+
+$theme-gradient-reversed: linear-gradient(
+	128deg,
+	hsl(32, 100%, 50%),
+	hsl(16, 100%, 50%),
+	hsl(12, 100%, 50%)
 );
 
 $gray-100: hsl(248, 8%, 4%);
 $gray-200: hsl(248, 8%, 16%);
 $gray-300: hsl(248, 8%, 24%);
 $gray-400: hsl(248, 8%, 40%);
-$gray-500: hsl(248, 8%, 72%);
+$gray-500: hsl(248, 8%, 64%);
 $gray-600: hsl(248, 8%, 80%);
 $gray-700: hsl(248, 8%, 88%);
 $gray-800: hsl(248, 8%, 94%);
