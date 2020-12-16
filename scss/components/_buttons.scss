@@ -1,0 +1,35 @@
+.button {
+	border: none;
+	background: transparent;
+	@include flex;
+	width: max-content;
+	cursor: pointer;
+	transition: all 0.25s ease;
+}
+
+//Text Buttons
+.primary-button {
+	@extend .button;
+	padding: $spacing-2 $spacing-7;
+	border-radius: $spacing-4;
+	background: $theme-gradient;
+	color: $theme-main-100;
+
+	&:hover {
+		background: $theme-main;
+		color: $theme-secondary-100;
+	}
+}
+
+.secondary-button {
+	@extend .button;
+	padding: $spacing-2 $spacing-7;
+	border-radius: $spacing-4;
+	background: $theme-secondary-200;
+	color: $theme-secondary;
+
+	&:hover {
+		background: $theme-secondary;
+		color: $theme-secondary-100;
+	}
+}

@@ -1,3 +1,20 @@
+$theme-main-900: hsl(256, 88%, 8%);
+$theme-main-800: hsl(256, 88%, 12%);
+$theme-main: hsl(256, 88%, 50%);
+$theme-main-100: hsl(256, 88%, 99%);
+
+$theme-secondary: hsl(276, 90%, 50%);
+$theme-secondary-400: hsl(276, 40%, 80%);
+$theme-secondary-300: hsl(276, 40%, 88%);
+$theme-secondary-200: hsl(276, 40%, 94%);
+$theme-secondary-100: hsl(276, 40%, 99%);
+
+$theme-gradient: linear-gradient(
+	to right,
+	hsl(261, 90%, 50%),
+	hsl(276, 90%, 50%)
+);
+
 $gray-100: hsl(248, 8%, 4%);
 $gray-200: hsl(248, 8%, 16%);
 $gray-300: hsl(248, 8%, 24%);
