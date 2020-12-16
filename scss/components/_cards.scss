@@ -1,0 +1,46 @@
+.feed-card {
+	width: 100%;
+	height: max-content;
+	margin: $spacing-16 0;
+	display: inline-block;
+
+	.feed-image {
+		width: 100%;
+		max-height: 485px;
+		object-fit: cover;
+		border-radius: $spacing-6;
+	}
+
+	.feed-controls {
+		width: 95%;
+		margin: 0 auto;
+		margin-top: $spacing-2;
+		@include flex;
+		justify-content: space-between;
+
+		.post-user {
+			@include flex;
+		}
+
+		.actions {
+			@include flex;
+
+			.like {
+				@include flex;
+				margin-right: $spacing-4;
+
+				.like-icon {
+					margin-right: $spacing-1;
+				}
+			}
+
+			.comment {
+				@include flex;
+
+				.comment-icon {
+					margin-right: $spacing-1;
+				}
+			}
+		}
+	}
+}
