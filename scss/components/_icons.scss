@@ -1,0 +1,11 @@
+.small-icon {
+	@include small-icon;
+}
+
+.regular-icon {
+	@include regular-icon;
+}
+
+.large-icon {
+	@include large-icon;
+}

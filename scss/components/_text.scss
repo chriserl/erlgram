@@ -1,0 +1,45 @@
+h1 {
+	@include h1;
+}
+
+h5 {
+	@include h5;
+	font-weight: 600;
+}
+
+.h5b {
+	@include h5b;
+}
+
+h6 {
+	@include h6;
+	font-weight: 600;
+}
+
+.h6b {
+	@include h6b;
+}
+
+.pl {
+	@include pl;
+}
+
+.plb {
+	@include plb;
+}
+
+.ps {
+	@include ps;
+}
+
+.psb {
+	@include psb;
+}
+
+.px {
+	@include px;
+}
+
+.pxb {
+	@include pxb;
+}

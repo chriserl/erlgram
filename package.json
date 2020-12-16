@@ -8,8 +8,16 @@
     "start": "next start"
   },
   "dependencies": {
+    "bootstrap-icons": "^1.2.1",
     "next": "10.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^8.10.38",
+    "@types/react": "^17.0.0",
+    "@webdeb/next-styles": "^1.1.1",
+    "next-fonts": "^1.5.1",
+    "typescript": "^4.1.2"
   }
 }
