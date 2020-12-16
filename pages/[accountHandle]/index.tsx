@@ -88,28 +88,31 @@ export default function AccountDashboard() {
 			<Navbar />
 
 			<main className={dashboardStyles.feed}>
-				<h6 className={dashboardStyles.sectionTitle}>Feed</h6>
-
 				<div className={dashboardStyles.feedItems}>
 					{posts.map((post) => (
 						<span className="feed-card plb">
+							<div className="post-user">
+								<img
+									src={post.postImage}
+									alt="feed image"
+									className="post-user-image"
+								/>
+								<p className="post-user-link pxb">{post.link}</p>
+							</div>
 							<img
 								src={post.postImage}
 								alt="feed image"
 								className="feed-image"
 							/>
 							<div className="feed-controls">
-								<div className="post-user">
-									<p className="post-user-link psb">{post.link}</p>
-								</div>
 								<div className="actions">
 									<div className="like">
 										<span className="small-icon bi-heart like-icon"></span>
-										<p className="like-count ps">{post.likes}</p>
+										<p className="like-count plb">{post.likes}</p>
 									</div>
 									<div className="comment">
 										<span className="small-icon bi-chat comment-icon"></span>
-										<p className="comment-count ps">{post.comments}</p>
+										<p className="comment-count plb">{post.comments}</p>
 									</div>
 								</div>
 							</div>

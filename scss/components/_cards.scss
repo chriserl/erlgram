@@ -1,8 +1,21 @@
 .feed-card {
 	width: 100%;
 	height: max-content;
-	margin: $spacing-16 0;
+	margin: $spacing-18 0;
 	display: inline-block;
+
+	.post-user {
+		@include flex;
+		margin-bottom: $spacing-5;
+		margin-left: $spacing-2;
+
+		.post-user-image {
+			width: $spacing-7;
+			height: $spacing-7;
+			border-radius: 50%;
+			margin-right: $spacing-3;
+		}
+	}
 
 	.feed-image {
 		width: 100%;
@@ -14,20 +27,16 @@
 	.feed-controls {
 		width: 95%;
 		margin: 0 auto;
-		margin-top: $spacing-2;
+		margin-top: $spacing-4;
 		@include flex;
 		justify-content: space-between;
-
-		.post-user {
-			@include flex;
-		}
 
 		.actions {
 			@include flex;
 
 			.like {
 				@include flex;
-				margin-right: $spacing-4;
+				margin-right: $spacing-8;
 
 				.like-icon {
 					margin-right: $spacing-1;
