@@ -2,22 +2,24 @@ h1 {
 	@include h1;
 }
 
-h5 {
-	@include h5;
-	font-weight: 600;
+h2 {
+	@include h2;
 }
 
-.h5b {
-	@include h5b;
+h3 {
+	@include h3;
+}
+
+h4 {
+	@include h4;
+}
+
+h5 {
+	@include h5;
 }
 
 h6 {
 	@include h6;
-	font-weight: 600;
-}
-
-.h6b {
-	@include h6b;
 }
 
 .pl {

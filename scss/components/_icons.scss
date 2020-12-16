@@ -9,3 +9,10 @@
 .large-icon {
 	@include large-icon;
 }
+
+.brand-icon {
+	background: $theme-gradient;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+}
