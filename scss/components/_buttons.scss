@@ -7,6 +7,29 @@
 	transition: all 0.25s ease;
 }
 
+.primary-icon-button {
+	@extend .button;
+	padding: 0.24rem;
+	border-radius: $spacing-4;
+	color: $theme-main-100;
+	background: $theme-main;
+	transition: all 0.25s ease;
+
+	&:hover {
+		color: $theme-main-900;
+		background: $theme-main-300;
+	}
+}
+
+.light-icon-button {
+	@extend .button;
+	padding: 0.24rem;
+	border-radius: $spacing-4;
+	color: $theme-main-900;
+	background: $theme-main-300;
+	transition: all 0.25s ease;
+}
+
 //Text Buttons
 .primary-button {
 	@extend .button;
