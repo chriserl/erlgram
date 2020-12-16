@@ -8,7 +8,7 @@ export default function Home() {
 				<Link href="/">
 					<a className={homeStyles.brand}>
 						<span
-							className={`bi-instagram large-icon brand-icon ${homeStyles.brandIcon}`}
+							className={`bi-instagram regular-icon brand-icon ${homeStyles.brandIcon}`}
 						></span>
 						<h5 className={homeStyles.brandName}>Erlgram</h5>
 					</a>
@@ -20,7 +20,7 @@ export default function Home() {
 						</a>
 					</li>
 					<li className={homeStyles.navItem}>
-						<button className="secondary-button pxb">Upgrade now</button>
+						<button className="secondary-button pxm">Upgrade now</button>
 					</li>
 				</ul>
 			</nav>
@@ -42,9 +42,9 @@ export default function Home() {
 						More functional and beautiful design. <br />
 						Your life becomes more pleasant.
 					</p>
-					<button className="primary-button pxb">
-						<a href="./feed.html">Upgrade now</a>
-					</button>
+					<a href="./feed.html">
+						<button className="primary-button pxm">Upgrade now</button>
+					</a>
 				</div>
 			</main>
 		</div>

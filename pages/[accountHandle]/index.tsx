@@ -108,11 +108,11 @@ export default function AccountDashboard() {
 								<div className="actions">
 									<div className="like">
 										<span className="small-icon bi-heart like-icon"></span>
-										<p className="like-count plb">{post.likes}</p>
+										<p className="like-count psb">{post.likes}</p>
 									</div>
 									<div className="comment">
 										<span className="small-icon bi-chat comment-icon"></span>
-										<p className="comment-count plb">{post.comments}</p>
+										<p className="comment-count psb">{post.comments}</p>
 									</div>
 								</div>
 							</div>
