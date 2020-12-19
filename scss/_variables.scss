@@ -1,30 +1,28 @@
+$theme-red: hsl(12, 100%, 50%);
+$theme-orange: hsl(18, 100%, 50%);
+$theme-yellow: hsl(36, 100%, 50%);
+
+$theme-gradient: linear-gradient(
+	120deg,
+	hsl(18, 100%, 50%),
+	hsl(36, 100%, 50%) 64%
+);
+
+$theme-gradient-reversed: linear-gradient(
+	120deg,
+	hsl(36, 100%, 50%),
+	hsl(18, 100%, 50%) 64%
+);
+
 $theme-main-900: hsl(16, 100%, 8%);
 $theme-main-800: hsl(16, 12%, 24%);
 $theme-main-700: hsl(16, 16%, 28%);
 $theme-main-600: hsl(16, 16%, 32%);
-$theme-main: hsl(16, 100%, 50%);
+$theme-main: hsl(18, 100%, 50%);
 $theme-main-300: hsl(16, 100%, 91%);
 $theme-main-300: hsl(16, 100%, 94%);
 $theme-main-200: hsl(16, 12%, 97%);
 $theme-main-100: hsl(16, 100%, 99%);
-
-$theme-red: hsl(12, 100%, 50%);
-$theme-orange: hsl(16, 100%, 50%);
-$theme-yellow: hsl(32, 100%, 50%);
-
-$theme-gradient: linear-gradient(
-	128deg,
-	hsl(12, 100%, 50%),
-	hsl(16, 100%, 50%),
-	hsl(32, 100%, 50%)
-);
-
-$theme-gradient-reversed: linear-gradient(
-	128deg,
-	hsl(32, 100%, 50%),
-	hsl(16, 100%, 50%),
-	hsl(12, 100%, 50%)
-);
 
 $gray-100: hsl(248, 8%, 4%);
 $gray-200: hsl(248, 8%, 16%);

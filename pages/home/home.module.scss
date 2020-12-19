@@ -2,6 +2,9 @@
 @import "../../scss/utilities";
 
 .home {
+	width: 100vw;
+	//	overflow-x: hidden;
+
 	.nav {
 		width: 98%;
 		margin: 0 auto;
@@ -46,9 +49,10 @@
 		grid-row-gap: $spacing-24;
 
 		@include tab-screen {
-			width: 92%;
+			width: 100%;
 			margin: $spacing-12 0 0 auto;
-			grid-template-columns: repeat(2, 50%);
+			grid-template-columns: repeat(2, 45%);
+			column-gap: $spacing-18;
 			grid-row-gap: 0;
 		}
 
@@ -73,7 +77,6 @@
 			width: 100%;
 
 			@include tab-screen {
-				width: max-content;
 				margin-left: $spacing-14;
 			}
 

@@ -1,5 +1,6 @@
 .search-control {
 	@include flex;
+	width: 100%;
 	border-radius: $spacing-4;
 	background-color: $theme-main-200;
 

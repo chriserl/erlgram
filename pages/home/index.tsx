@@ -34,15 +34,14 @@ export default function Home() {
 					/>
 				</div>
 				<div className={homeStyles.infoArea}>
-					<h1 className={homeStyles.mainText}>
-						Pimp Your Design <br />
-						on Instagram
-					</h1>
+					<h3 className={homeStyles.mainText}>
+						Experience the new flavour of Instagram
+					</h3>
 					<p className={`ps ${homeStyles.auxText}`}>
 						More functional and beautiful design. <br />
 						Your life becomes more pleasant.
 					</p>
-					<a href="./feed.html">
+					<a href="./feed">
 						<button className="primary-button pxm">Upgrade now</button>
 					</a>
 				</div>
