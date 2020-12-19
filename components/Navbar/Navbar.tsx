@@ -24,8 +24,13 @@ export default function Navbar() {
 					</button>
 				</li>
 				<li className={navbarStyles.navItem}>
-					<button className="primary-icon-button">
+					<button className="primary-icon-button-bordered">
 						<span className="bi-camera-fill small-icon"></span>
+					</button>
+				</li>
+				<li className={navbarStyles.navItem}>
+					<button className="light-icon-button-bordered">
+						<span className="bi-at regular-icon"></span>
 					</button>
 				</li>
 			</ul>

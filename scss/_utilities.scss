@@ -139,6 +139,13 @@
 }
 
 @mixin regular-icon {
+	font-size: 1.18rem;
+	padding: 0.2rem;
+	cursor: pointer;
+	@include flex;
+}
+
+@mixin medium-icon {
 	font-size: 1.32rem;
 	padding: 0.24rem;
 	cursor: pointer;

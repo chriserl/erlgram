@@ -7,12 +7,30 @@
 	transition: all 0.25s ease;
 }
 
-.primary-icon-button {
+.light-icon-button {
+	@extend .button;
+	padding: 0.32rem;
+	border-radius: $spacing-4;
+	background-color: white;
+	color: $theme-main-900;
+	transition: all 0.25s ease;
+
+	&:hover {
+		box-shadow: 8px 12px 12px 4px $theme-main-200;
+		color: hsl(16, 100%, 50%);
+
+		span {
+			filter: drop-shadow(2px 2px 12px $theme-yellow);
+		}
+	}
+}
+
+.primary-icon-button-bordered {
 	@include flex(row, center, center);
 	@extend .button;
 	padding: 0.4rem;
 	border-radius: 50%;
-	border: 1.4px solid hsl(22, 94%, 90%);
+	border: 1.4px solid $theme-main-400;
 	transition: all 0.25s ease;
 
 	span {
@@ -32,19 +50,10 @@
 	}
 }
 
-.light-icon-button {
-	@extend .button;
-	padding: 0.32rem;
-	border-radius: $spacing-4;
+.light-icon-button-bordered {
+	@extend .light-icon-button;
+	padding: 0.28rem;
 	border: 1.8px solid hsl(16, 12%, 97%);
-	background-color: white;
-	color: hsl(16, 100%, 18%);
-	transition: all 0.25s ease;
-
-	&:hover {
-		box-shadow: 8px 12px 12px 4px hsl(16, 24%, 96%);
-		color: hsl(16, 100%, 50%);
-	}
 }
 
 //Text Buttons
