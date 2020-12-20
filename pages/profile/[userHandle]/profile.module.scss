@@ -1,0 +1,72 @@
+@import "../../../scss/variables";
+@import "../../../scss/utilities";
+
+.userProfile {
+	width: 100%;
+
+	.summaryContainer {
+		width: 84%;
+		margin: $spacing-14 auto;
+
+		@include tab-screen {
+			width: 80%;
+			margin: $spacing-14 0 0 auto;
+		}
+
+		.profileSummary {
+			@include flex($align: flex-start);
+
+			.profileImageContainer {
+				display: flex(row, center, center);
+				margin-bottom: $spacing-8;
+
+				.profileImage {
+					width: $spacing-15;
+					height: $spacing-15;
+					border-radius: 50%;
+				}
+			}
+
+			.summaryContent {
+				margin-top: $spacing-2;
+				margin-left: $spacing-8;
+
+				.profileName {
+					margin-bottom: $spacing-3;
+					color: $theme-main-800;
+				}
+
+				.profileLink {
+					color: $gray-400;
+				}
+			}
+		}
+
+		.profileStats {
+			@include flex;
+			width: max-content;
+			padding: 0 $spacing-4;
+			margin-top: $spacing-2;
+
+			.stat {
+				text-align: center;
+
+				&:nth-child(2) {
+					padding: 0 $spacing-12;
+				}
+
+				p:nth-child(1) {
+					color: $theme-main-800;
+				}
+
+				p:nth-child(2) {
+					color: $gray-400;
+				}
+			}
+		}
+
+		.followButton {
+			margin: $spacing-13 0;
+		}
+	}
+}

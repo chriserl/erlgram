@@ -1,7 +1,11 @@
 import Link from "next/link";
 import navbarStyles from "./navbar.module.scss";
 
-export default function Navbar({ emptyAccountAction }) {
+interface NavbarProps {
+	emptyAccountAction?: any;
+}
+
+export default function Navbar({ emptyAccountAction }: NavbarProps) {
 	return (
 		<nav className={navbarStyles.nav}>
 			<Link href="/">

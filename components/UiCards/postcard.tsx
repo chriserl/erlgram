@@ -31,7 +31,9 @@ export default function PostCard({ post }: PostCardProps) {
 				onClick={() => toggleDescription()}
 			/>
 			<div className="post-controls">
-				<p className="post-user-link psb">{post.link}</p>
+				<a href={`profile/${post.link}`} className="post-user-link psb">
+					{`@${post.link}`}
+				</a>
 				<div className="actions">
 					<div className="like">
 						<span className="regular-icon bi-heart like-icon"></span>
