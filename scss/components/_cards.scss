@@ -1,63 +1,68 @@
 .post-card {
 	width: 100%;
-	height: max-content;
-	margin: $spacing-14 0;
+	height: 100%;
 	display: inline-block;
+	margin: $spacing-4 0 $spacing-12;
 
-	.post-user {
-		@include flex;
-		margin-bottom: $spacing-5;
-		margin-left: $spacing-2;
-		color: $gray-400;
-
-		.post-user-image {
-			width: $spacing-7;
-			height: $spacing-7;
-			border-radius: 50%;
-			margin-right: $spacing-3;
-		}
-	}
-
-	.post-image {
+	.post-card-container {
+		height: max-content;
 		width: 100%;
-		max-height: 485px;
-		object-fit: cover;
-		border-radius: $spacing-6;
-	}
 
-	.post-controls {
-		width: 95%;
-		margin: 0 auto;
-		margin-top: $spacing-4;
-		@include flex($justify: space-between);
-
-		.actions {
+		.post-user {
 			@include flex;
+			margin-bottom: $spacing-5;
+			margin-left: $spacing-2;
+			color: $gray-400;
 
-			.like {
+			.post-user-image {
+				width: $spacing-7;
+				height: $spacing-7;
+				border-radius: 50%;
+				margin-right: $spacing-3;
+			}
+		}
+
+		.post-image {
+			width: 100%;
+			max-height: 485px;
+			object-fit: cover;
+			border-radius: $spacing-6;
+		}
+
+		.post-controls {
+			width: 95%;
+			margin: 0 auto;
+			margin-top: $spacing-4;
+			@include flex($justify: space-between);
+
+			.actions {
 				@include flex;
-				margin-right: $spacing-7;
 
-				.like-icon {
-					margin-right: $spacing-1;
-					color: $theme-red;
-				}
+				.like {
+					@include flex;
+					margin-right: $spacing-7;
 
-				.link-count {
-					color: $gray-200;
+					.like-icon {
+						margin-right: $spacing-1;
+						color: $theme-red;
+					}
+
+					.link-count {
+						color: $gray-200;
+					}
 				}
 			}
 		}
-	}
 
-	.post-description {
-		width: 94%;
-		margin: 0 auto;
-		margin-top: $spacing-6;
-	}
+		.post-description {
+			width: 94%;
+			margin: 0 auto;
+			margin-top: $spacing-6;
+		}
 
-	.description-invisible {
-		visibility: hidden;
+		.description-invisible {
+			visibility: hidden;
+		}
 	}
 }
 
