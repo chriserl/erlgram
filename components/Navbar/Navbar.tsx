@@ -1,7 +1,7 @@
 import Link from "next/link";
 import navbarStyles from "./navbar.module.scss";
 
-export default function Navbar() {
+export default function Navbar({ emptyAccountAction }) {
 	return (
 		<nav className={navbarStyles.nav}>
 			<Link href="/">
@@ -29,7 +29,10 @@ export default function Navbar() {
 					</button>
 				</li>
 				<li className={navbarStyles.navItem}>
-					<button className="light-icon-button-bordered">
+					<button
+						className="light-icon-button-bordered"
+						onClick={() => emptyAccountAction({ type: "SIGNIN" })}
+					>
 						<span className="bi-at regular-icon"></span>
 					</button>
 				</li>

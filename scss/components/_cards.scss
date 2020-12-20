@@ -60,3 +60,85 @@
 		visibility: hidden;
 	}
 }
+
+.signin-card-container {
+	width: 100vw;
+	height: 100vh;
+	background: hsla(0, 0%, 0%, 0.24);
+	position: fixed;
+	z-index: 1;
+
+	.signin-card {
+		width: 88%;
+		margin: 24% auto;
+		padding: $spacing-8 $spacing-10 $spacing-12;
+		border-radius: $spacing-5;
+		background: white;
+
+		@include tab-screen {
+			width: 24%;
+			margin: 6% auto;
+		}
+
+		.close-icon-container {
+			width: 100%;
+			@include flex($justify: flex-end);
+
+			.close-icon {
+				position: relative;
+				left: $spacing-11;
+				bottom: $spacing-10;
+				padding: 0;
+
+				&:hover {
+					background-color: $gray-800;
+					color: $theme-red;
+					box-shadow: none;
+				}
+			}
+		}
+
+		.brand {
+			width: max-content;
+			margin: 0 auto;
+			padding: $spacing-2;
+			@include flex;
+
+			.brandIcon {
+				margin-right: $spacing-3;
+			}
+
+			.brandName {
+				font-family: Billabong;
+				@include flex;
+				margin: $spacing-1 0 0;
+				color: $theme-main-700;
+			}
+		}
+
+		.signin-form {
+			margin-top: $spacing-8;
+
+			.text-control {
+				margin: $spacing-6 0;
+			}
+
+			.sign-in-button {
+				width: 100%;
+				margin: 0 auto;
+				margin-top: $spacing-12;
+			}
+
+			.alt-text {
+				width: max-content;
+				margin: 0 auto;
+				@include flex;
+				margin-top: $spacing-5;
+
+				button {
+					margin-left: $spacing-3;
+				}
+			}
+		}
+	}
+}

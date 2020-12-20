@@ -1,28 +1,11 @@
 .button {
+	text-align: center;
 	border: none;
 	background: transparent;
-	@include flex;
+	@include flex($justify: center);
 	width: max-content;
 	cursor: pointer;
 	transition: all 0.25s ease;
-}
-
-.light-icon-button {
-	@extend .button;
-	padding: 0.32rem;
-	border-radius: $spacing-4;
-	background-color: white;
-	color: $theme-main-900;
-	transition: all 0.25s ease;
-
-	&:hover {
-		box-shadow: 8px 12px 12px 4px $theme-main-200;
-		color: hsl(16, 100%, 50%);
-
-		span {
-			filter: drop-shadow(2px 2px 12px $theme-yellow);
-		}
-	}
 }
 
 .primary-icon-button-bordered {
@@ -46,6 +29,24 @@
 
 		span {
 			box-shadow: -8px 12px 24px hsl(22, 94%, 96%);
+		}
+	}
+}
+
+.light-icon-button {
+	@extend .button;
+	padding: 0.32rem;
+	border-radius: $spacing-4;
+	background-color: white;
+	color: $theme-main-900;
+	transition: all 0.25s ease;
+
+	&:hover {
+		box-shadow: 8px 12px 12px 4px $theme-main-200;
+		color: hsl(16, 100%, 50%);
+
+		span {
+			filter: drop-shadow(2px 2px 12px $theme-yellow);
 		}
 	}
 }
@@ -79,4 +80,9 @@
 	&:hover {
 		box-shadow: 8px 16px 12px $theme-main-200;
 	}
+}
+
+.link-button {
+	@extend .button;
+	color: $theme-yellow;
 }

@@ -3,7 +3,8 @@
 
 .nav {
 	width: 94%;
-	margin: $spacing-6 auto;
+	margin: 0 auto;
+	padding-top: $spacing-6;
 	@include flex($justify: space-between);
 	flex-flow: row wrap;
 

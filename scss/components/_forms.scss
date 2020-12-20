@@ -22,3 +22,42 @@
 		}
 	}
 }
+
+.text-control {
+	@include flex;
+	width: 100%;
+	border-radius: $spacing-4;
+	background-color: $theme-main-200;
+
+	span {
+		color: $gray-400;
+		padding: $spacing-2;
+		background-color: $gray-800;
+		border-radius: $spacing-2;
+	}
+
+	.text-input {
+		width: 100%;
+		border: none;
+		padding: $spacing-2 $spacing-6;
+		background: transparent;
+		color: $theme-main-800;
+		@include ps;
+
+		&::placeholder {
+			@include px;
+			color: $gray-500;
+		}
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	&:focus-within {
+		span {
+			margin-top: -1.14rem;
+			filter: drop-shadow(4px 4px 8px $gray-700);
+		}
+	}
+}

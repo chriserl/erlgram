@@ -1,6 +1,13 @@
+import { useReducer } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import PostCard from "../../components/UiCards/postcard";
+import SignIn from "../../components/UiCards/SignInCard";
+import SignUp from "../../components/UiCards/SignUpCard";
 import dashboardStyles from "./accountDashboard.module.scss";
+
+interface accountCardAction {
+	type: "SIGNIN" | "SIGNUP";
+}
 
 export default function AccountDashboard() {
 	const posts = [
@@ -84,9 +91,41 @@ export default function AccountDashboard() {
 		},
 	];
 
+	const accountCardReducer = (
+		currentState: string,
+		action: accountCardAction
+	) => {
+		return !action.type ? "noCard" : action.type;
+	};
+
+	let [accountCard, accountCardDispatch] = useReducer(
+		accountCardReducer,
+		"noCard"
+	);
+
 	return (
 		<div className={dashboardStyles.accountDashboard}>
-			<Navbar />
+			{accountCard === "SIGNIN" && (
+				<SignIn
+					emptyAccountAction={(action: accountCardAction) =>
+						accountCardDispatch(action)
+					}
+				/>
+			)}
+
+			{accountCard === "SIGNUP" && (
+				<SignUp
+					emptyAccountAction={(action: accountCardAction) =>
+						accountCardDispatch(action)
+					}
+				/>
+			)}
+
+			<Navbar
+				emptyAccountAction={(action: accountCardAction) =>
+					accountCardDispatch(action)
+				}
+			/>
 
 			<main className={dashboardStyles.feed}>
 				<div className={dashboardStyles.feedItems}>

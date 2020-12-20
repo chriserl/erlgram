@@ -6,13 +6,11 @@
 
 	.feed {
 		width: 90%;
-		height: max-content;
 		margin: 0 auto;
 		margin-top: $spacing-8;
 
 		.feedItems {
 			width: 100%;
-			height: max-content;
 			columns: auto 12rem;
 			column-gap: $spacing-12;
 		}
