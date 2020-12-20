@@ -1,4 +1,5 @@
 import Navbar from "../../components/Navbar/Navbar";
+import PostCard from "../../components/UiCards/postcard";
 import dashboardStyles from "./accountDashboard.module.scss";
 
 export default function AccountDashboard() {
@@ -90,33 +91,7 @@ export default function AccountDashboard() {
 			<main className={dashboardStyles.feed}>
 				<div className={dashboardStyles.feedItems}>
 					{posts.map((post) => (
-						<span className="feed-card plb">
-							<div className="post-user">
-								<img
-									src={post.postImage}
-									alt="feed image"
-									className="post-user-image"
-								/>
-								<p className="post-user-link pxb">{post.link}</p>
-							</div>
-							<img
-								src={post.postImage}
-								alt="feed image"
-								className="feed-image"
-							/>
-							<div className="feed-controls">
-								<div className="actions">
-									<div className="like">
-										<span className="small-icon bi-heart like-icon"></span>
-										<p className="like-count psb">{post.likes}</p>
-									</div>
-									<div className="comment">
-										<span className="small-icon bi-chat comment-icon"></span>
-										<p className="comment-count psb">{post.comments}</p>
-									</div>
-								</div>
-							</div>
-						</span>
+						<PostCard post={post} />
 					))}
 				</div>
 			</main>

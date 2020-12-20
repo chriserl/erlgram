@@ -1,4 +1,4 @@
-.feed-card {
+.post-card {
 	width: 100%;
 	height: max-content;
 	margin: $spacing-14 0;
@@ -18,26 +18,25 @@
 		}
 	}
 
-	.feed-image {
+	.post-image {
 		width: 100%;
 		max-height: 485px;
 		object-fit: cover;
 		border-radius: $spacing-6;
 	}
 
-	.feed-controls {
+	.post-controls {
 		width: 95%;
 		margin: 0 auto;
-		margin-top: $spacing-2;
-		@include flex;
-		justify-content: space-between;
+		margin-top: $spacing-4;
+		@include flex($justify: space-between);
 
 		.actions {
 			@include flex;
 
 			.like {
 				@include flex;
-				margin-right: $spacing-4;
+				margin-right: $spacing-7;
 
 				.like-icon {
 					margin-right: $spacing-1;
@@ -48,19 +47,16 @@
 					color: $gray-200;
 				}
 			}
-
-			.comment {
-				@include flex;
-
-				.comment-icon {
-					margin-right: $spacing-1;
-					color: $theme-yellow;
-				}
-
-				.comment-count {
-					color: $gray-200;
-				}
-			}
 		}
+	}
+
+	.post-description {
+		width: 94%;
+		margin: 0 auto;
+		margin-top: $spacing-6;
+	}
+
+	.description-invisible {
+		visibility: hidden;
 	}
 }
