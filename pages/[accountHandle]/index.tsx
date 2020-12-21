@@ -1,14 +1,6 @@
-import { useReducer, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import PostCard from "../../components/UiCards/PostCard";
-import SignIn from "../../components/UiCards/SignInCard";
-import SignUp from "../../components/UiCards/SignUpCard";
-import PostModal from "../../components/UiCards/PostModal";
 import dashboardStyles from "./accountDashboard.module.scss";
-
-interface accountCardAction {
-	type: "SIGNIN" | "SIGNUP";
-}
 
 export default function AccountDashboard() {
 	const posts = [
@@ -92,54 +84,9 @@ export default function AccountDashboard() {
 		},
 	];
 
-	const accountCardReducer = (
-		currentState: string,
-		action: accountCardAction
-	) => {
-		return !action.type ? "noCard" : action.type;
-	};
-
-	const toggleNewPostCard = () => {
-		setNewPostCard(() =>
-			newPostCard === "postCardHidden" ? "postCardVisible" : "postCardHidden"
-		);
-	};
-
-	let [accountCard, accountCardDispatch] = useReducer(
-		accountCardReducer,
-		"noCard"
-	);
-
-	let [newPostCard, setNewPostCard] = useState(() => "postCardHidden");
-
 	return (
 		<div className={dashboardStyles.accountDashboard}>
-			{accountCard === "SIGNIN" && (
-				<SignIn
-					emptyAccountAction={(action: accountCardAction) =>
-						accountCardDispatch(action)
-					}
-				/>
-			)}
-
-			{accountCard === "SIGNUP" && (
-				<SignUp
-					emptyAccountAction={(action: accountCardAction) =>
-						accountCardDispatch(action)
-					}
-				/>
-			)}
-
-			{newPostCard === "postCardVisible" && (
-				<PostModal closeCard={() => toggleNewPostCard()} />
-			)}
-
-			<Navbar
-				showPostCard={() => toggleNewPostCard()}
-				emptyAccountAction={(action: accountCardAction) =>
-					accountCardDispatch(action)
-				}
-			/>
+			<Navbar />
 
 			<main className={dashboardStyles.feed}>
 				<div className={dashboardStyles.feedItems}>
