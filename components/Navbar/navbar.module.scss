@@ -13,23 +13,6 @@
 		@include flex($justify: start);
 	}
 
-	.brand {
-		width: max-content;
-		padding: $spacing-2;
-		@include flex;
-
-		.brandIcon {
-			margin-right: $spacing-3;
-		}
-
-		.brandName {
-			font-family: Billabong;
-			@include flex;
-			margin: $spacing-1 0 0;
-			color: $theme-main-700;
-		}
-	}
-
 	.navForm {
 		flex-basis: 90%;
 		order: 2;

@@ -4,6 +4,7 @@ import SignIn from "../../components/UiCards/SignInCard";
 import SignUp from "../../components/UiCards/SignUpCard";
 import PostModal from "../../components/UiCards/PostModal";
 import navbarStyles from "./navbar.module.scss";
+import Brand from "../UiCards/Brand";
 
 interface accountCardAction {
 	type: "SIGNIN" | "SIGNUP";
@@ -52,14 +53,8 @@ export default function Navbar() {
 				<PostModal closeCard={() => toggleNewPostCard()} />
 			)}
 			<nav className={navbarStyles.nav}>
-				<Link href="/">
-					<a className={navbarStyles.brand}>
-						<span
-							className={`bi-instagram regular-icon brand-icon ${navbarStyles.brandIcon}`}
-						></span>
-						<h5 className={navbarStyles.brandName}>Erlgram</h5>
-					</a>
-				</Link>
+				<Brand />
+
 				<form className={navbarStyles.navForm}>
 					<div className="search-control">
 						<input

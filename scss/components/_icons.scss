@@ -6,6 +6,10 @@
 	@include regular-icon;
 }
 
+.medium-icon {
+	@include medium-icon;
+}
+
 .large-icon {
 	@include large-icon;
 }
