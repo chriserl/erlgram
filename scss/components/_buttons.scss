@@ -82,6 +82,14 @@
 	}
 }
 
+.light-theme-button {
+	@extend .button;
+	color: $theme-main;
+	padding: $spacing-1 $spacing-4;
+	background: $theme-main-300;
+	border-radius: $spacing-3;
+}
+
 .link-button {
 	@extend .button;
 	color: $theme-yellow;

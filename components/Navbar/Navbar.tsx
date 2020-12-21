@@ -3,9 +3,13 @@ import navbarStyles from "./navbar.module.scss";
 
 interface NavbarProps {
 	emptyAccountAction?: any;
+	showPostCard?: VoidFunction;
 }
 
-export default function Navbar({ emptyAccountAction }: NavbarProps) {
+export default function Navbar({
+	emptyAccountAction,
+	showPostCard,
+}: NavbarProps) {
 	return (
 		<nav className={navbarStyles.nav}>
 			<Link href="/">
@@ -28,7 +32,10 @@ export default function Navbar({ emptyAccountAction }: NavbarProps) {
 					</button>
 				</li>
 				<li className={navbarStyles.navItem}>
-					<button className="primary-icon-button-bordered">
+					<button
+						className="primary-icon-button-bordered"
+						onClick={() => showPostCard()}
+					>
 						<span className="bi-camera-fill small-icon"></span>
 					</button>
 				</li>

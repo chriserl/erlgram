@@ -13,6 +13,15 @@
 	justify-content: $justify;
 }
 
+//Modal Container
+@mixin modal-container {
+	width: 100vw;
+	height: 100vh;
+	background: hsla(0, 0%, 0%, 0.24);
+	position: fixed;
+	z-index: 1;
+}
+
 //Display none
 @mixin d-none {
 	display: none;

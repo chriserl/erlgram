@@ -42,10 +42,10 @@
 		padding: $spacing-2 $spacing-6;
 		background: transparent;
 		color: $theme-main-800;
-		@include ps;
+		@include psm;
 
 		&::placeholder {
-			@include px;
+			@include pxm;
 			color: $gray-500;
 		}
 
@@ -58,6 +58,33 @@
 		span {
 			margin-top: -1.14rem;
 			filter: drop-shadow(4px 4px 8px $gray-700);
+		}
+	}
+}
+
+.file-input-control {
+	width: 100%;
+
+	input {
+		@include d-none;
+	}
+}
+
+.textarea-control {
+	width: 100%;
+	border-radius: $spacing-4;
+	background-color: $theme-main-200;
+
+	textarea {
+		border: none;
+		background: transparent;
+		padding: $spacing-2 $spacing-5;
+		resize: none;
+		@include psm;
+		@include scroll-hide;
+
+		&:focus {
+			outline: none;
 		}
 	}
 }
