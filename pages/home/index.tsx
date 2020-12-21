@@ -1,29 +1,10 @@
+import Navbar from "../../components/Navbar/Navbar";
 import homeStyles from "./home.module.scss";
-import Link from "next/link";
 
 export default function Home() {
 	return (
 		<div className={homeStyles.home}>
-			<nav className={homeStyles.nav}>
-				<Link href="/">
-					<a className={homeStyles.brand}>
-						<span
-							className={`bi-instagram regular-icon brand-icon ${homeStyles.brandIcon}`}
-						></span>
-						<h5 className={homeStyles.brandName}>Erlgram</h5>
-					</a>
-				</Link>
-				<ul className={homeStyles.navLinks}>
-					<li className={homeStyles.navItem}>
-						<a href="#" className={`navLink ps ${homeStyles.help}`}>
-							Help
-						</a>
-					</li>
-					<li className={homeStyles.navItem}>
-						<button className="secondary-button pxm">Upgrade now</button>
-					</li>
-				</ul>
-			</nav>
+			<Navbar />
 
 			<main>
 				<div className={homeStyles.imageArea}>

@@ -3,43 +3,6 @@
 
 .home {
 	width: 100vw;
-	//	overflow-x: hidden;
-
-	.nav {
-		width: 98%;
-		margin: 0 auto;
-		padding: $spacing-4 0;
-		@include flex($justify: space-between);
-		@include tab-screen {
-			width: 92%;
-		}
-
-		.brand {
-			width: max-content;
-			padding: $spacing-2;
-			@include flex;
-
-			.brandIcon {
-				margin-right: $spacing-3;
-			}
-
-			.brandName {
-				font-family: Billabong;
-				@include flex;
-				margin: $spacing-1 0 0;
-				color: $theme-main-800;
-			}
-		}
-
-		.navLinks {
-			@include flex;
-
-			.navItem {
-				padding: $spacing-2;
-				margin: 0 $spacing-2;
-			}
-		}
-	}
 
 	main {
 		@include grid(center, center);
