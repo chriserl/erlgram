@@ -1,4 +1,37 @@
-export default function SignIn({ emptyAccountAction }) {
+import { useReducer } from "react";
+import { SignInData } from "../../lib/ts/interfaces";
+
+interface formAction {
+	type: "USERNAME" | "PASSWORD";
+	payload: string;
+}
+
+export default function SignInCard({ emptyAccountAction, signInAction }) {
+	const formReducer = (
+		prevState: SignInData,
+		action: formAction
+	): SignInData => {
+		switch (action.type) {
+			case "USERNAME": {
+				return { ...prevState, userEmail: action.payload };
+			}
+
+			case "PASSWORD": {
+				return { ...prevState, credentials: { password: action.payload } };
+			}
+		}
+	};
+
+	let [formState, formStateDispatch] = useReducer(formReducer, {
+		userEmail: "",
+		credentials: { password: "" },
+	});
+
+	const handleSubmit = (submitEvent) => {
+		submitEvent.preventDefault();
+		signInAction({ SignInData: { ...formState } });
+	};
+
 	return (
 		<div className="signin-card-container">
 			<div className="signin-card">
@@ -18,25 +51,38 @@ export default function SignIn({ emptyAccountAction }) {
 					<h5 className="brandName">Erlgram</h5>
 				</a>
 
-				<form
-					className="signin-form"
-					onSubmit={(event) => event.preventDefault()}
-				>
+				<form className="signin-form" onSubmit={(event) => handleSubmit(event)}>
 					<div className="text-control">
 						<span className="bi-envelope-fill small-icon"></span>
 						<input
-							type="text"
+							value={formState.userEmail}
+							onChange={(event) =>
+								formStateDispatch({
+									type: "USERNAME",
+									payload: event.target.value,
+								})
+							}
+							type="email"
 							className="user-email text-input"
 							placeholder="Email"
+							required
 						/>
 					</div>
 
 					<div className="text-control">
 						<span className="bi-lock small-icon"></span>
 						<input
+							value={formState.credentials.password}
+							onChange={(event) =>
+								formStateDispatch({
+									type: "PASSWORD",
+									payload: event.target.value,
+								})
+							}
 							type="password"
 							className="user-password text-input"
 							placeholder="Password"
+							required
 						/>
 					</div>
 

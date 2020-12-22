@@ -1,17 +1,37 @@
-import Link from "next/link";
-import React, { useReducer, useState } from "react";
-import SignIn from "../../components/UiCards/SignInCard";
-import SignUp from "../../components/UiCards/SignUpCard";
+import React, { useReducer, useState, useContext } from "react";
+import axios from "axios";
+import { GlobalContext } from "../../Contexts/GlobalContext";
+import SignInCard from "../../components/UiCards/SignInCard";
+import { SignInData } from "../../lib/ts/interfaces";
+import SignUpCard from "../../components/UiCards/SignUpCard";
 import PostModal from "../../components/UiCards/PostModal";
 import navbarStyles from "./navbar.module.scss";
 import Brand from "../UiCards/Brand";
 
 interface accountCardAction {
-	type: "SIGNIN" | "SIGNUP";
+	type?: "SIGNIN" | "SIGNUP";
 }
 
 export default function Navbar() {
 	let [newPostCard, setNewPostCard] = useState(() => "postCardHidden");
+
+	let [GlobalState, dispatchGlobalState] = useContext(GlobalContext);
+
+	console.log(GlobalState);
+
+	const signIn = async (signInData: SignInData) => {
+		await axios
+			.post("api/faunaapi/signin", signInData)
+			.then((apiResponse) =>
+				dispatchGlobalState({
+					type: "UPDATE",
+					payload: { ...apiResponse.data["apiResponse"] },
+				})
+			)
+			.catch((apiError) => console.error(apiError));
+
+		accountCardDispatch({});
+	};
 
 	const toggleNewPostCard = () => {
 		setNewPostCard(() =>
@@ -34,15 +54,16 @@ export default function Navbar() {
 	return (
 		<React.Fragment>
 			{accountCard === "SIGNIN" && (
-				<SignIn
+				<SignInCard
 					emptyAccountAction={(action: accountCardAction) =>
 						accountCardDispatch(action)
 					}
+					signInAction={(signInData: SignInData) => signIn(signInData)}
 				/>
 			)}
 
 			{accountCard === "SIGNUP" && (
-				<SignUp
+				<SignUpCard
 					emptyAccountAction={(action: accountCardAction) =>
 						accountCardDispatch(action)
 					}

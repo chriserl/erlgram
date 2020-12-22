@@ -1,4 +1,5 @@
 import Navbar from "../../components/Navbar/Navbar";
+import Link from "next/link";
 import homeStyles from "./home.module.scss";
 
 export default function Home() {
@@ -22,9 +23,11 @@ export default function Home() {
 						More functional and beautiful design. <br />
 						Your life becomes more pleasant.
 					</p>
-					<a href="./feed">
-						<button className="primary-button pxm">Upgrade now</button>
-					</a>
+					<Link href="./feed">
+						<a>
+							<button className="primary-button pxm">Upgrade now</button>
+						</a>
+					</Link>
 				</div>
 			</main>
 		</div>

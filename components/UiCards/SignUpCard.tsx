@@ -1,4 +1,4 @@
-export default function SignUp({ emptyAccountAction }) {
+export default function SignUpCard({ emptyAccountAction }) {
 	return (
 		<div className="signin-card-container">
 			<div className="signin-card">
