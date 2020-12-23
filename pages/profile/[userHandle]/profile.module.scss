@@ -6,11 +6,26 @@
 
 	.summaryContainer {
 		width: 84%;
-		margin: $spacing-14 auto;
+		margin: $spacing-12 auto $spacing-24;
 
 		@include tab-screen {
 			width: 80%;
 			margin: $spacing-14 0 0 auto;
+		}
+
+		.summaryContent {
+			margin: 0 0 $spacing-10;
+
+			.profileName {
+				margin-bottom: $spacing-3;
+				font-weight: 600;
+				letter-spacing: 0.06rem;
+				color: $theme-main-800;
+			}
+
+			.profileLink {
+				color: $gray-400;
+			}
 		}
 
 		.profileSummary {
@@ -21,52 +36,43 @@
 				margin-bottom: $spacing-8;
 
 				.profileImage {
-					width: $spacing-15;
-					height: $spacing-15;
+					width: $spacing-24;
+					height: $spacing-24;
 					border-radius: 50%;
 				}
 			}
 
-			.summaryContent {
-				margin-top: $spacing-2;
-				margin-left: $spacing-8;
+			.profileDetails {
+				margin-left: $spacing-16;
 
-				.profileName {
-					margin-bottom: $spacing-3;
-					color: $theme-main-800;
+				.profileStats {
+					@include flex;
+					width: max-content;
+					padding: 0 $spacing-4 0 0;
+					margin-top: $spacing-2;
+
+					.stat {
+						text-align: center;
+
+						&:nth-child(2) {
+							padding: 0 $spacing-12;
+						}
+
+						h6:nth-child(1) {
+							color: $theme-main;
+							font-weight: 600;
+						}
+
+						p:nth-child(2) {
+							color: $gray-200;
+						}
+					}
 				}
 
-				.profileLink {
-					color: $gray-400;
-				}
-			}
-		}
-
-		.profileStats {
-			@include flex;
-			width: max-content;
-			padding: 0 $spacing-4;
-			margin-top: $spacing-2;
-
-			.stat {
-				text-align: center;
-
-				&:nth-child(2) {
-					padding: 0 $spacing-12;
-				}
-
-				p:nth-child(1) {
-					color: $theme-main-800;
-				}
-
-				p:nth-child(2) {
-					color: $gray-400;
+				.followButton {
+					margin: $spacing-12 0;
 				}
 			}
-		}
-
-		.followButton {
-			margin: $spacing-13 0;
 		}
 	}
 }
