@@ -15,7 +15,11 @@ export default async (request, response) => {
 			} else {
 				response.setHeader(
 					"Set-Cookie",
-					serialize("sessionId", apiResponse["authToken"], { path: "/" })
+					serialize("sessionId", apiResponse["authToken"], {
+						path: "/",
+						httpOnly: true,
+						maxAge: 60 * 60 * 24 * 7,
+					})
 				);
 				response.send(
 					JSON.stringify({ apiResponse: apiResponse["userAccount"] })
