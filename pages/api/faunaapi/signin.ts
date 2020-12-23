@@ -13,14 +13,18 @@ export default async (request, response) => {
 			if (apiResponse === "apiError") {
 				response.status(500).send(JSON.stringify({ apiResponse: apiResponse }));
 			} else {
-				response.setHeader(
-					"Set-Cookie",
-					serialize("sessionId", apiResponse["authToken"], {
+				response.setHeader("Set-Cookie", [
+					serialize("FID", apiResponse["authToken"], {
 						path: "/",
 						httpOnly: true,
 						maxAge: 60 * 60 * 24 * 7,
-					})
-				);
+					}),
+					serialize("FMAIL", userCredentials.userEmail, {
+						path: "/",
+						httpOnly: true,
+						maxAge: 60 * 60 * 24 * 7,
+					}),
+				]);
 				response.send(
 					JSON.stringify({ apiResponse: apiResponse["userAccount"] })
 				);
