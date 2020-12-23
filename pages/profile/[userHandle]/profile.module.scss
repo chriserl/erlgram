@@ -5,7 +5,7 @@
 	width: 100%;
 
 	.summaryContainer {
-		width: 84%;
+		width: 90%;
 		margin: $spacing-12 auto $spacing-24;
 
 		@include tab-screen {
@@ -14,10 +14,11 @@
 		}
 
 		.summaryContent {
-			margin: 0 0 $spacing-10;
+			margin: 0 0 $spacing-11;
 
 			.profileName {
 				margin-bottom: $spacing-3;
+				margin-left: $spacing-1;
 				font-weight: 600;
 				letter-spacing: 0.06rem;
 				color: $theme-main-800;
@@ -36,35 +37,48 @@
 				margin-bottom: $spacing-8;
 
 				.profileImage {
-					width: $spacing-24;
-					height: $spacing-24;
+					width: $spacing-15;
+					height: $spacing-15;
 					border-radius: 50%;
+
+					@include tab-screen {
+						width: $spacing-20;
+						height: $spacing-20;
+					}
 				}
 			}
 
 			.profileDetails {
-				margin-left: $spacing-16;
+				margin-left: $spacing-8;
+
+				@include tab-screen {
+					margin-left: $spacing-14;
+				}
 
 				.profileStats {
 					@include flex;
 					width: max-content;
-					padding: 0 $spacing-4 0 0;
 					margin-top: $spacing-2;
 
 					.stat {
 						text-align: center;
 
 						&:nth-child(2) {
-							padding: 0 $spacing-12;
+							margin: 0 $spacing-8;
+
+							@include tab-screen {
+								margin: 0 $spacing-10;
+							}
 						}
 
 						h6:nth-child(1) {
-							color: $theme-main;
+							color: $theme-main-800;
 							font-weight: 600;
+							margin-bottom: $spacing-1;
 						}
 
 						p:nth-child(2) {
-							color: $gray-200;
+							color: $gray-400;
 						}
 					}
 				}

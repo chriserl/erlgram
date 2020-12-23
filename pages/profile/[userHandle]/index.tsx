@@ -7,7 +7,7 @@ export default function UserProfile() {
 			<Navbar />
 			<div className={profileStyles.summaryContainer}>
 				<div className={profileStyles.summaryContent}>
-					<h4 className={` ${profileStyles.profileName}`}>Unjaded Jade</h4>
+					<h5 className={` ${profileStyles.profileName}`}>Unjaded Jade</h5>
 				</div>
 				<div className={profileStyles.profileSummary}>
 					<div className={profileStyles.profileImageContainer}>
