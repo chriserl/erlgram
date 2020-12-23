@@ -17,6 +17,18 @@ export default function Navbar() {
 
 	let [GlobalState, dispatchGlobalState] = useContext(GlobalContext);
 
+	const reAuthenticate = async () => {
+		await axios
+			.get("api/faunaapi/reauthenticate")
+			.then((apiResponse) =>
+				dispatchGlobalState({
+					type: "UPDATE",
+					payload: { ...apiResponse.data["apiResponse"] },
+				})
+			)
+			.catch((apiError) => console.error(apiError));
+	};
+
 	const signIn = async (signInData: SignInData) => {
 		await axios
 			.post("api/faunaapi/signin", signInData)
@@ -62,6 +74,10 @@ export default function Navbar() {
 		accountCardReducer,
 		"noCard"
 	);
+
+	useEffect(() => {
+		reAuthenticate();
+	}, []);
 
 	return (
 		<React.Fragment>

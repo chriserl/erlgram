@@ -7,7 +7,7 @@ export class FaunaFunctions {
 	private faunaClient = new faunadb.Client({ secret: this.faunaKey });
 	private faunaQuery = faunadb.query;
 
-	private getAccount = async (userEmail: string) =>
+	getAccount = async (userEmail: string) =>
 		await this.faunaClient
 			.query(
 				this.faunaQuery.Get(
