@@ -1,8 +1,8 @@
-import React, { useReducer, useState, useContext } from "react";
+import React, { useReducer, useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { GlobalContext } from "../../Contexts/GlobalContext";
 import SignInCard from "../../components/UiCards/SignInCard";
-import { SignInData } from "../../lib/ts/interfaces";
+import { SignInData, SignUpData } from "../../lib/ts/interfaces";
 import SignUpCard from "../../components/UiCards/SignUpCard";
 import PostModal from "../../components/UiCards/PostModal";
 import navbarStyles from "./navbar.module.scss";
@@ -17,11 +17,23 @@ export default function Navbar() {
 
 	let [GlobalState, dispatchGlobalState] = useContext(GlobalContext);
 
-	console.log(GlobalState);
-
 	const signIn = async (signInData: SignInData) => {
 		await axios
 			.post("api/faunaapi/signin", signInData)
+			.then((apiResponse) =>
+				dispatchGlobalState({
+					type: "UPDATE",
+					payload: { ...apiResponse.data["apiResponse"] },
+				})
+			)
+			.catch((apiError) => console.error(apiError));
+
+		accountCardDispatch({});
+	};
+
+	const signUp = async (signUpData: SignUpData) => {
+		await axios
+			.post("api/faunaapi/signup", signUpData)
 			.then((apiResponse) =>
 				dispatchGlobalState({
 					type: "UPDATE",
@@ -67,6 +79,7 @@ export default function Navbar() {
 					emptyAccountAction={(action: accountCardAction) =>
 						accountCardDispatch(action)
 					}
+					signUpAction={(signUpData: SignUpData) => signUp(signUpData)}
 				/>
 			)}
 

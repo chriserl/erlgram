@@ -1,18 +1,5 @@
 import * as faunadb from "faunadb";
-import { SignInData } from "../lib/ts/interfaces";
-
-interface SignUpData {
-	credentials: {
-		password: string;
-	};
-	data: {
-		account: {
-			userName: string;
-			userLink: string;
-			userEmail: string;
-		};
-	};
-}
+import { SignInData, SignUpData } from "../lib/ts/interfaces";
 
 export class FaunaFunctions {
 	constructor(private faunaKey: string) {}
@@ -32,6 +19,22 @@ export class FaunaFunctions {
 			)
 			.then((faunaResponse) => faunaResponse["data"])
 			.catch((e) => e);
+
+	signUp = async (userData: SignUpData) =>
+		await this.faunaClient
+			.query(
+				this.faunaQuery.Create(
+					this.faunaQuery.Collection("useraccounts"),
+					userData
+				)
+			)
+			.then(() =>
+				this.signIn({
+					userEmail: userData.data.account.userEmail,
+					credentials: { password: userData.credentials.password },
+				})
+			)
+			.catch(() => "apiError");
 
 	signIn = async (userCredentials: SignInData) =>
 		await this.faunaClient
