@@ -1,14 +1,50 @@
 import React, { useState } from "react";
+import { useReducer } from "react";
+import { PostShape } from "../../lib/ts/interfaces";
 
 interface PostModalProps {
 	closeCard: VoidFunction;
+	createPostAction: Function;
 }
 
-export default function PostModal({ closeCard }: PostModalProps) {
-	let [postFile, setPostFile] = useState(() => "");
+interface formAction {
+	type: "IMAGE" | "CAPTION";
+	payload: string;
+}
 
-	const loadPostFile = (fileUploadEvent) => {
-		setPostFile(() => URL.createObjectURL(fileUploadEvent.target.files[0]));
+interface PostFormShape {
+	image: string;
+	caption: string;
+}
+
+export default function PostModal({
+	closeCard,
+	createPostAction,
+}: PostModalProps) {
+	const formReducer = (
+		prevState: PostFormShape,
+		action: formAction
+	): PostFormShape => {
+		switch (action.type) {
+			case "IMAGE": {
+				return { ...prevState, image: action.payload };
+			}
+
+			case "CAPTION": {
+				return { ...prevState, caption: action.payload };
+			}
+		}
+		console.log(formState);
+	};
+
+	let [formState, formStateDispatch] = useReducer(formReducer, {
+		image: "",
+		caption: "",
+	});
+
+	const handleSubmit = (submitEvent) => {
+		submitEvent.preventDefault();
+		createPostAction(formState);
 	};
 
 	return (
@@ -23,16 +59,24 @@ export default function PostModal({ closeCard }: PostModalProps) {
 					</button>
 				</div>
 				<div className="modal-body">
-					<form className="modal-form">
+					<form
+						className="modal-form"
+						onSubmit={(submitEvent) => handleSubmit(submitEvent)}
+					>
 						<div className="file-input-control">
 							<input
 								type="file"
 								name="file-upload"
 								id="file-upload"
 								accept="image/,.png,.jpg,.webp"
-								onChange={(uploadEvent) => loadPostFile(uploadEvent)}
+								onChange={(uploadEvent) =>
+									formStateDispatch({
+										type: "IMAGE",
+										payload: URL.createObjectURL(uploadEvent.target.files[0]),
+									})
+								}
 							/>
-							{postFile.length === 0 ? (
+							{formState.image.length === 0 ? (
 								<React.Fragment>
 									<label htmlFor="file-upload" className="file-upload-label">
 										<p className="upload-button psb">
@@ -47,7 +91,11 @@ export default function PostModal({ closeCard }: PostModalProps) {
 							) : (
 								<React.Fragment>
 									<label htmlFor="file-upload" className="file-upload-label">
-										<img src={postFile} alt="post" className="post-image" />
+										<img
+											src={formState.image}
+											alt="post"
+											className="post-image"
+										/>
 									</label>
 
 									<p className="psm select-text">
@@ -59,6 +107,13 @@ export default function PostModal({ closeCard }: PostModalProps) {
 
 						<div className="textarea-control">
 							<textarea
+								value={formState.caption}
+								onChange={(event) =>
+									formStateDispatch({
+										type: "CAPTION",
+										payload: event.target.value,
+									})
+								}
 								name="post caption"
 								placeholder="Caption"
 								rows={2}

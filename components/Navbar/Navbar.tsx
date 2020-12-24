@@ -2,7 +2,7 @@ import React, { useReducer, useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { GlobalContext } from "../../Contexts/GlobalContext";
 import SignInCard from "../../components/UiCards/SignInCard";
-import { SignInData, SignUpData } from "../../lib/ts/interfaces";
+import { SignInData, SignUpData, PostShape } from "../../lib/ts/interfaces";
 import SignUpCard from "../../components/UiCards/SignUpCard";
 import PostModal from "../../components/UiCards/PostModal";
 import navbarStyles from "./navbar.module.scss";
@@ -10,6 +10,11 @@ import Brand from "../UiCards/Brand";
 
 interface accountCardAction {
 	type?: "SIGNIN" | "SIGNUP";
+}
+
+interface PostFormShape {
+	image: string;
+	caption: string;
 }
 
 export default function Navbar() {
@@ -57,6 +62,29 @@ export default function Navbar() {
 		accountCardDispatch({});
 	};
 
+	const createPost = async (postData: PostFormShape) => {
+		const timestamp = Date.now();
+		const post: PostShape = {
+			data: {
+				...postData,
+				timestamp,
+				likes: 0,
+				saves: 0,
+				author: {
+					link: GlobalState.account.userLink,
+					name: GlobalState.account.userName,
+				},
+			},
+		};
+
+		await axios
+			.post("api/faunaapi/createpost", post)
+			.then((apiResponse) => console.log(apiResponse))
+			.catch((apiError) => console.error(apiError));
+
+		toggleNewPostCard();
+	};
+
 	const toggleNewPostCard = () => {
 		setNewPostCard(() =>
 			newPostCard === "postCardHidden" ? "postCardVisible" : "postCardHidden"
@@ -100,7 +128,10 @@ export default function Navbar() {
 			)}
 
 			{newPostCard === "postCardVisible" && (
-				<PostModal closeCard={() => toggleNewPostCard()} />
+				<PostModal
+					closeCard={() => toggleNewPostCard()}
+					createPostAction={(postData: PostFormShape) => createPost(postData)}
+				/>
 			)}
 			<nav className={navbarStyles.nav}>
 				<Brand />
