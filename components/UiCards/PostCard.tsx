@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/link";
 
 interface PostCardProps {
 	post: {
@@ -32,9 +33,9 @@ export default function PostCard({ post }: PostCardProps) {
 					onClick={() => toggleDescription()}
 				/>
 				<div className="post-controls">
-					<a href={`profile/${post.link}`} className="post-user-link psb">
-						{`@${post.link}`}
-					</a>
+					<Link href={`profile/${post.link}`}>
+						<a className="post-user-link psb">{`@${post.link}`}</a>
+					</Link>
 					<div className="actions">
 						<div className="like">
 							<span className="regular-icon bi-heart like-icon"></span>

@@ -70,6 +70,11 @@ export interface creatorPostsUpdate {
 	};
 }
 
+export interface createFollowing {
+	creatorLink: string;
+	followerLink: string;
+}
+
 export interface GlobalContextReducerAction {
 	type: "UPDATE" | "CLEAR";
 	payload?: { userEmail: string; userLink: string; userName: string };

@@ -5,7 +5,7 @@ import dashboardStyles from "./accountDashboard.module.scss";
 export default function AccountDashboard() {
 	const posts = [
 		{
-			link: "amy_bra..",
+			link: "braimah",
 			likes: 12,
 			comments: 234,
 			postImage: "/images/profileimages/prof1.jpg",

@@ -1,7 +1,36 @@
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useState, useContext } from "react";
+import { createFollowing } from "../../../lib/ts/interfaces";
+import { GlobalContext } from "../../../Contexts/GlobalContext";
 import Navbar from "../../../components/Navbar/Navbar";
 import profileStyles from "./profile.module.scss";
 
 export default function UserProfile() {
+	let [GlobalState, dispatchGlobalState] = useContext(GlobalContext);
+
+	let [isFollowing, setIsFollowing] = useState(() => true);
+
+	const userHandle = useRouter().asPath;
+
+	const createFollowing = async (followingData: createFollowing) => {
+		await axios
+			.post("/api/faunaapi/createfollowing", followingData)
+			.then((apiResponse) => console.log(apiResponse))
+			.catch((apiError) => console.error(apiError));
+	};
+
+	const handleFollowing = async () => {
+		if (GlobalState.account.userLink) {
+			(await GlobalState.account.userLink) &&
+				createFollowing({
+					creatorLink: userHandle.slice(9),
+					followerLink: GlobalState.account.userLink,
+				});
+			setIsFollowing(() => (isFollowing === true ? false : true));
+		}
+	};
+
 	return (
 		<div className={profileStyles.userProfile}>
 			<Navbar />
@@ -35,9 +64,12 @@ export default function UserProfile() {
 						</div>
 
 						<button
-							className={`primary-button psm ${profileStyles.followButton}`}
+							className={`${
+								isFollowing ? "primary-button psb" : "secondary-button psb"
+							} ${profileStyles.followButton}`}
+							onClick={() => handleFollowing()}
 						>
-							Follow
+							{isFollowing ? "Follow" : "Unfollow"}
 						</button>
 					</div>
 				</div>

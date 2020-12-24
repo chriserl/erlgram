@@ -3,10 +3,19 @@ import {
 	SignInData,
 	SignUpData,
 	PostShape,
-	creatorPostsUpdate,
+	createFollowing,
 } from "../../lib/ts/interfaces";
 
-const { Select, Get, Match, Index, Append } = faunadb.query;
+const {
+	Select,
+	Get,
+	Match,
+	Index,
+	Append,
+	Add,
+	ContainsValue,
+	HasCurrentToken,
+} = faunadb.query;
 
 export class FaunaAdminFunctions {
 	constructor() {}
@@ -16,6 +25,97 @@ export class FaunaAdminFunctions {
 		secret: this.faunaKey,
 	});
 	private faunaQuery = faunadb.query;
+
+	isAuthorized = async (userId: string) =>
+		await new faunadb.Client({ secret: userId })
+			.query(this.faunaQuery.HasCurrentToken())
+			.then((response) => response)
+			.catch((error) => console.log(error["description"]));
+
+	private checkFollowing = async (creatorLink: string, followerLink: string) =>
+		await this.faunaClient
+			.query(
+				ContainsValue(
+					followerLink,
+					Select(
+						["data", "social", "followers"],
+						Get(Match(Index("search_by_link"), creatorLink)),
+						[]
+					)
+				)
+			)
+			.then((ress) => ress)
+			.catch((error) => console.log(error["description"]));
+
+	private appendFollowingToCreator = async (
+		creatorLink: string,
+		followerLink: string
+	) => {
+		await this.faunaClient
+			.query(
+				this.faunaQuery.Update(
+					Select("ref", Get(Match(Index("search_by_link"), creatorLink))),
+					{
+						data: {
+							social: {
+								followers: Append(
+									followerLink,
+									Select(
+										["data", "social", "followers"],
+										Get(Match(Index("search_by_link"), creatorLink)),
+										[]
+									)
+								),
+								followersCount: Add(
+									Select(
+										["data", "social", "followersCount"],
+										Get(Match(Index("search_by_link"), creatorLink)),
+										0
+									),
+									1
+								),
+							},
+						},
+					}
+				)
+			)
+			.catch((error) => console.log(error["description"]));
+	};
+
+	private appendFollowingToFollower = async (
+		creatorLink: string,
+		followerLink: string
+	) => {
+		await this.faunaClient
+			.query(
+				this.faunaQuery.Update(
+					Select("ref", Get(Match(Index("search_by_link"), followerLink))),
+					{
+						data: {
+							social: {
+								following: Append(
+									creatorLink,
+									Select(
+										["data", "social", "following"],
+										Get(Match(Index("search_by_link"), followerLink)),
+										[]
+									)
+								),
+								followingCount: Add(
+									Select(
+										["data", "social", "followingCount"],
+										Get(Match(Index("search_by_link"), followerLink)),
+										0
+									),
+									1
+								),
+							},
+						},
+					}
+				)
+			)
+			.catch((error) => console.log(error["description"]));
+	};
 
 	private postToUserPosts = async (postData: PostShape) =>
 		await this.faunaClient
@@ -55,9 +155,9 @@ export class FaunaAdminFunctions {
 					}
 				)
 			)
-			.then((ress) => console.log(ress))
 			.catch((error) => console.log(error["description"]));
 	};
+
 	getAccount = async (userEmail: string) =>
 		await this.faunaClient
 			.query(
@@ -115,4 +215,25 @@ export class FaunaAdminFunctions {
 				this.appendPostToCreator(postReference, userEmail)
 			)
 			.catch(() => "Unauthorized");
+
+	createFollowing = async (followingData: createFollowing, userId: string) => {
+		let isFollowing = await this.checkFollowing(
+			followingData.creatorLink,
+			followingData.followerLink
+		);
+
+		if (!isFollowing) {
+			await this.appendFollowingToCreator(
+				followingData.creatorLink,
+				followingData.followerLink
+			)
+				.then(() =>
+					this.appendFollowingToFollower(
+						followingData.creatorLink,
+						followingData.followerLink
+					)
+				)
+				.catch((error) => console.log(error["description"]));
+		}
+	};
 }
