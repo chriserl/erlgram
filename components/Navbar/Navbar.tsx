@@ -6,7 +6,7 @@ import { SignInData, SignUpData, PostShape } from "../../lib/ts/interfaces";
 import SignUpCard from "../../components/UiCards/SignUpCard";
 import PostModal from "../../components/UiCards/PostModal";
 import Brand from "../UiCards/Brand";
-import { useReauthorizeUser } from "../../lib/hooks/hooks";
+import { useReauthorizeUser } from "../../lib/hooks/react";
 import navbarStyles from "./navbar.module.scss";
 
 interface accountCardAction {

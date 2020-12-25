@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useReauthorizeUser } from "../../lib/hooks/hooks";
+import { useReauthorizeUser } from "../../lib/hooks/react";
 import Navbar from "../../components/Navbar/Navbar";
 import homeStyles from "./home.module.scss";
 
