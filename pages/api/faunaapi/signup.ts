@@ -1,11 +1,11 @@
 import { serialize } from "cookie";
-import { FaunaFunctions } from "../../../apiFunctions/FaunaFunctions";
+import { FaunaAdminFunctions } from "../../../apiFunctions/FaunaFunctions/FaunaAdminFunctions";
 import { SignUpData } from "../../../lib/ts/interfaces";
 
 export default async (request, response) => {
 	const faunaKey = process.env.FAUNA_ADMIN_KEY;
 	const userData: SignUpData = request.body["SignUpData"];
-	const faunaDb = new FaunaFunctions(faunaKey);
+	const faunaDb = new FaunaAdminFunctions();
 
 	await faunaDb
 		.signUp(userData)

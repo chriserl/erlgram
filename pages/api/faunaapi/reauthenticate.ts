@@ -1,10 +1,10 @@
-import { FaunaFunctions } from "../../../apiFunctions/FaunaFunctions";
+import { FaunaClientFunctions } from "../../../apiFunctions/FaunaFunctions/FaunaClientFunctions";
 
 export default async (request, response) => {
 	const { FMAIL, FID } = request.cookies;
 
 	if (FMAIL && FID) {
-		const faunaDb = new FaunaFunctions(FID);
+		const faunaDb = new FaunaClientFunctions(FID);
 
 		await faunaDb
 			.getAccount(FMAIL)
