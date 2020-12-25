@@ -34,9 +34,14 @@
 			}
 		}
 
-		.cta {
+		.ctas {
+			@include flex;
 			margin: $spacing-18 auto 0;
 			width: max-content;
+
+			button:nth-child(1) {
+				margin-right: $spacing-10;
+			}
 		}
 	}
 }

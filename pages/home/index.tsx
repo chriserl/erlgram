@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useReauthorizeUser } from "../../lib/hooks/hooks";
 import Navbar from "../../components/Navbar/Navbar";
 import homeStyles from "./home.module.scss";
 
@@ -9,6 +10,8 @@ interface accountCardAction {
 type cardTypes = "SIGNIN" | "SIGNUP";
 
 export default function Home() {
+	useReauthorizeUser();
+
 	const [card, setCard] = useState<accountCardAction>({});
 
 	const handleCardType = (cardtype: cardTypes) =>
@@ -28,12 +31,21 @@ export default function Home() {
 						</p>
 						<p className={homeStyles.mainText}>erlgram</p>
 					</div>
-					<button
-						onClick={() => handleCardType("SIGNUP")}
-						className={`primary-button psm ${homeStyles.cta}`}
-					>
-						Explore
-					</button>
+					<div className={homeStyles.ctas}>
+						<button
+							onClick={() => handleCardType("SIGNUP")}
+							className={`primary-button psm ${homeStyles.signup}`}
+						>
+							Signup
+						</button>
+
+						<button
+							onClick={() => handleCardType("SIGNIN")}
+							className={`secondary-button psm ${homeStyles.signin}`}
+						>
+							Signin
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

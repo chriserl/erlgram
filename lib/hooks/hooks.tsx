@@ -18,7 +18,7 @@ const useReauthorizeUser = () => {
 	};
 
 	useEffect(() => {
-		reAuthenticate();
+		!GlobalState.account.authorized && reAuthenticate();
 	}, []);
 };
 
