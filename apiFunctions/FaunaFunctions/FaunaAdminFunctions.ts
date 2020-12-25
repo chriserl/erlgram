@@ -7,6 +7,7 @@ import {
 } from "../../lib/ts/interfaces";
 
 const {
+	Update,
 	Select,
 	Get,
 	Match,
@@ -21,6 +22,7 @@ const {
 	Var,
 	Subtract,
 	Not,
+	Foreach,
 } = faunadb.query;
 
 export class FaunaAdminFunctions {
@@ -241,6 +243,45 @@ export class FaunaAdminFunctions {
 			.catch((error) => console.log(error["description"]));
 	};
 
+	private appendPostToFollowers = async (
+		postReference: number,
+		userEmail: string
+	) =>
+		await this.faunaClient
+			.query(
+				Foreach(
+					Select(
+						["data", "social", "followers"],
+						Get(Match(Index("search_by_email"), userEmail)),
+						[]
+					),
+					Lambda(
+						"follower",
+						Update(
+							Select(
+								"ref",
+								Get(Match(Index("search_by_link"), Var("follower")))
+							),
+							{
+								data: {
+									social: {
+										feed: Append(
+											postReference,
+											Select(
+												["data", "social", "feed"],
+												Get(Match(Index("search_by_link"), Var("follower"))),
+												[]
+											)
+										),
+									},
+								},
+							}
+						)
+					)
+				)
+			)
+			.catch((error) => console.log(error["description"]));
+
 	getAccount = async (userEmail: string) =>
 		await this.faunaClient
 			.query(
@@ -294,9 +335,10 @@ export class FaunaAdminFunctions {
 				async (res) =>
 					await this.postToUserPosts(postData).catch((faunaError) => faunaError)
 			)
-			.then((postReference) =>
-				this.appendPostToCreator(postReference, userEmail)
-			)
+			.then(async (postReference) => {
+				await this.appendPostToCreator(postReference, userEmail);
+				await this.appendPostToFollowers(postReference, userEmail);
+			})
 			.catch(() => "Unauthorized");
 
 	createFollowing = async (followingData: createFollowing, userId: string) => {
