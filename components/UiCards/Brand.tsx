@@ -5,7 +5,7 @@ export default function Brand() {
 		<Link href="/">
 			<a className="brand">
 				<span className="bi-hexagon large-icon brand-icon"></span>
-				<h5 className="brand-name">Erlgram</h5>
+				<h4 className="brand-name">erlgram</h4>
 			</a>
 		</Link>
 	);
