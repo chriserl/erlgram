@@ -1,35 +1,29 @@
-import Navbar from "../../components/Navbar/Navbar";
 import Link from "next/link";
+import Navbar from "../../components/Navbar/Navbar";
 import homeStyles from "./home.module.scss";
 
 export default function Home() {
 	return (
-		<div className={homeStyles.home}>
+		<div className={homeStyles.homeContainer}>
 			<Navbar />
-
-			<main>
-				<div className={homeStyles.imageArea}>
-					<img
-						src="/images/hdimage.png"
-						alt="Image of Instagram redesign"
-						className={homeStyles.hdImage}
-					/>
-				</div>
-				<div className={homeStyles.infoArea}>
-					<h3 className={homeStyles.mainText}>
-						Experience the new flavour of Instagram
-					</h3>
-					<p className={`ps ${homeStyles.auxText}`}>
-						More functional and beautiful design. <br />
-						Your life becomes more pleasant.
-					</p>
-					<Link href="./feed">
-						<a>
-							<button className="primary-button pxm">Upgrade now</button>
-						</a>
+			<div className={homeStyles.home}>
+				<div>
+					<span
+						className={`large-icon bi-hexagon brand-icon ${homeStyles.brandIcon}`}
+					></span>
+					<div className={homeStyles.textContent}>
+						<p className={`plb ${homeStyles.auxText}`}>
+							experience the new flavour of instagram
+						</p>
+						<p className={homeStyles.mainText}>erlgram</p>
+					</div>
+					<Link href="/braimah">
+						<button className={`primary-button psm ${homeStyles.cta}`}>
+							Explore
+						</button>
 					</Link>
 				</div>
-			</main>
+			</div>
 		</div>
 	);
 }

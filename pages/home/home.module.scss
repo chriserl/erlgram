@@ -1,56 +1,42 @@
 @import "../../scss/variables";
 @import "../../scss/utilities";
 
-.home {
+.homeContainer {
+	height: 100vh;
 	width: 100vw;
+	overflow: hidden;
 
-	main {
-		@include grid(center, center);
-		width: 92%;
-		margin: $spacing-12 auto;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		grid-row-gap: $spacing-24;
+	.home {
+		@include flex($justify: center);
+		width: 94%;
+		height: calc(100vh - 16rem);
+		margin: auto;
+		text-align: center;
 
-		@include tab-screen {
-			width: 100%;
-			margin: $spacing-12 0 0 auto;
-			grid-template-columns: repeat(2, 45%);
-			column-gap: $spacing-18;
-			grid-row-gap: 0;
+		.brandIcon {
+			font-size: 4rem;
+			width: max-content;
+			margin: 0 auto $spacing-12;
 		}
 
-		.imageArea {
-			@include flex;
-			justify-content: center;
-
-			.hdImage {
-				width: 90%;
-			}
-
-			@include tab-screen {
-				order: 1;
-
-				.hdImage {
-					width: 100%;
-				}
-			}
-		}
-
-		.infoArea {
-			width: 100%;
-
-			@include tab-screen {
-				margin-left: $spacing-14;
+		.textContent {
+			.auxText {
+				text-transform: uppercase;
+				margin-bottom: $spacing-8;
+				color: $theme-main-600;
 			}
 
 			.mainText {
-				margin-bottom: $spacing-8;
+				font-family: Billabong;
+				font-size: 4.8rem;
+				margin-bottom: $spacing-4;
+				color: $theme-main-900;
 			}
+		}
 
-			.auxText {
-				margin-bottom: $spacing-12;
-				color: $gray-200;
-			}
+		.cta {
+			margin: $spacing-18 auto 0;
+			width: max-content;
 		}
 	}
 }
