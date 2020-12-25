@@ -285,14 +285,12 @@ export class FaunaAdminFunctions {
 	getAccount = async (userEmail: string) =>
 		await this.faunaClient
 			.query(
-				this.faunaQuery.Get(
-					this.faunaQuery.Match(
-						this.faunaQuery.Index("search_by_email"),
-						userEmail
-					)
+				Select(
+					["data", "account"],
+					Get(Match(Index("search_by_email"), userEmail))
 				)
 			)
-			.then((faunaResponse) => faunaResponse["data"])
+			.then((faunaResponse) => faunaResponse)
 			.catch((e) => e);
 
 	signUp = async (userData: SignUpData) =>
