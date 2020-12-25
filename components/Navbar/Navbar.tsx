@@ -24,7 +24,7 @@ export default function Navbar() {
 
 	const reAuthenticate = async () => {
 		await axios
-			.get("api/faunaapi/reauthenticate")
+			.get("/api/faunaapi/reauthenticate")
 			.then((apiResponse) =>
 				dispatchGlobalState({
 					type: "UPDATE",
@@ -36,7 +36,7 @@ export default function Navbar() {
 
 	const signIn = async (signInData: SignInData) => {
 		await axios
-			.post("api/faunaapi/signin", signInData)
+			.post("/api/faunaapi/signin", signInData)
 			.then((apiResponse) =>
 				dispatchGlobalState({
 					type: "UPDATE",
@@ -50,7 +50,7 @@ export default function Navbar() {
 
 	const signUp = async (signUpData: SignUpData) => {
 		await axios
-			.post("api/faunaapi/signup", signUpData)
+			.post("/api/faunaapi/signup", signUpData)
 			.then((apiResponse) =>
 				dispatchGlobalState({
 					type: "UPDATE",
@@ -78,7 +78,7 @@ export default function Navbar() {
 		};
 
 		await axios
-			.post("api/faunaapi/createpost", post)
+			.post("/api/faunaapi/createpost", post)
 			.then((apiResponse) => console.log(apiResponse))
 			.catch((apiError) => console.error(apiError));
 
