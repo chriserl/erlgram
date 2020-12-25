@@ -1,7 +1,4 @@
-import { useState, useEffect, useContext } from "react";
-import { GlobalContext } from "../../Contexts/GlobalContext";
-import { useReauthorizeUser } from "../../lib/hooks/react";
-import { useRedirect } from "../../lib/hooks/next";
+import { useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import homeStyles from "./home.module.scss";
 
@@ -12,12 +9,6 @@ interface accountCardAction {
 type cardTypes = "SIGNIN" | "SIGNUP";
 
 export default function Home() {
-	let [GlobalState, dispatchGlobalState] = useContext(GlobalContext);
-
-	useReauthorizeUser();
-
-	GlobalState.authorized && useRedirect(GlobalState.userLink);
-
 	const [card, setCard] = useState<accountCardAction>({});
 
 	const handleCardType = (cardtype: cardTypes) =>
