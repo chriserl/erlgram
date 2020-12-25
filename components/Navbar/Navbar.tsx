@@ -5,8 +5,9 @@ import SignInCard from "../../components/UiCards/SignInCard";
 import { SignInData, SignUpData, PostShape } from "../../lib/ts/interfaces";
 import SignUpCard from "../../components/UiCards/SignUpCard";
 import PostModal from "../../components/UiCards/PostModal";
-import navbarStyles from "./navbar.module.scss";
 import Brand from "../UiCards/Brand";
+import { useReauthorizeUser } from "../../lib/hooks/hooks";
+import navbarStyles from "./navbar.module.scss";
 
 interface accountCardAction {
 	type?: "SIGNIN" | "SIGNUP";
@@ -25,18 +26,6 @@ export default function Navbar({ cardControl }: NavbarProps) {
 	let [newPostCard, setNewPostCard] = useState(() => "postCardHidden");
 
 	let [GlobalState, dispatchGlobalState] = useContext(GlobalContext);
-
-	const reAuthenticate = async () => {
-		await axios
-			.get("/api/faunaapi/reauthenticate")
-			.then((apiResponse) =>
-				dispatchGlobalState({
-					type: "UPDATE",
-					payload: { ...apiResponse.data["apiResponse"] },
-				})
-			)
-			.catch((apiError) => console.error(apiError));
-	};
 
 	const signIn = async (signInData: SignInData) => {
 		await axios
@@ -108,7 +97,6 @@ export default function Navbar({ cardControl }: NavbarProps) {
 	);
 
 	useEffect(() => {
-		//reAuthenticate();
 		accountCardDispatch(cardControl);
 	}, [cardControl]);
 
