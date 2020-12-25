@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
 	) {
 		switch (action.type) {
 			case "CLEAR":
-				return { account: { authorized: false } };
+				return { authorized: false };
 
 			case "UPDATE":
 				return { ...oldGlobalState, ...action.payload };
@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }) {
 	}
 
 	let [GlobalState, dispatchGlobalState] = useReducer(GlobalContextReducer, {
-		account: { authorized: false },
+		authorized: false,
 	});
 
 	return (

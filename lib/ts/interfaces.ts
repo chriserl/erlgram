@@ -4,11 +4,9 @@ export type GlobalContextShape = [
 ];
 
 export interface GlobalAccountShape {
-	account: {
-		authorized: boolean;
-		userName?: string;
-		userLink?: string;
-	};
+	authorized: boolean;
+	userName?: string;
+	userLink?: string;
 }
 
 export interface SignInData {

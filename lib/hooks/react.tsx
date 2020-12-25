@@ -11,14 +11,14 @@ const useReauthorizeUser = () => {
 			.then((apiResponse) =>
 				dispatchGlobalState({
 					type: "UPDATE",
-					payload: { ...apiResponse.data["apiResponse"] },
+					payload: { ...apiResponse.data["apiResponse"], authorized: true },
 				})
 			)
 			.catch((apiError) => console.error(apiError));
 	};
 
 	useEffect(() => {
-		!GlobalState.account.authorized && reAuthenticate();
+		!GlobalState.authorized && reAuthenticate();
 	}, []);
 };
 

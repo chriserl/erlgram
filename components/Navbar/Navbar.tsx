@@ -6,7 +6,6 @@ import { SignInData, SignUpData, PostShape } from "../../lib/ts/interfaces";
 import SignUpCard from "../../components/UiCards/SignUpCard";
 import PostModal from "../../components/UiCards/PostModal";
 import Brand from "../UiCards/Brand";
-import { useReauthorizeUser } from "../../lib/hooks/react";
 import navbarStyles from "./navbar.module.scss";
 
 interface accountCardAction {
@@ -33,7 +32,7 @@ export default function Navbar({ cardControl }: NavbarProps) {
 			.then((apiResponse) =>
 				dispatchGlobalState({
 					type: "UPDATE",
-					payload: { ...apiResponse.data["apiResponse"] },
+					payload: { ...apiResponse.data["apiResponse"], authorized: true },
 				})
 			)
 			.catch((apiError) => console.error(apiError));
@@ -47,7 +46,7 @@ export default function Navbar({ cardControl }: NavbarProps) {
 			.then((apiResponse) =>
 				dispatchGlobalState({
 					type: "UPDATE",
-					payload: { ...apiResponse.data["apiResponse"] },
+					payload: { ...apiResponse.data["apiResponse"], authorized: true },
 				})
 			)
 			.catch((apiError) => console.error(apiError));
@@ -64,8 +63,8 @@ export default function Navbar({ cardControl }: NavbarProps) {
 				likes: 0,
 				saves: 0,
 				author: {
-					link: GlobalState.account.userLink,
-					name: GlobalState.account.userName,
+					link: GlobalState.userLink,
+					name: GlobalState.userName,
 				},
 			},
 		};
@@ -97,7 +96,7 @@ export default function Navbar({ cardControl }: NavbarProps) {
 	);
 
 	useEffect(() => {
-		accountCardDispatch(cardControl);
+		cardControl && accountCardDispatch(cardControl);
 	}, [cardControl]);
 
 	return (
