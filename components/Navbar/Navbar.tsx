@@ -12,12 +12,16 @@ interface accountCardAction {
 	type?: "SIGNIN" | "SIGNUP";
 }
 
+interface NavbarProps {
+	cardControl?: accountCardAction;
+}
+
 interface PostFormShape {
 	image: string;
 	caption: string;
 }
 
-export default function Navbar() {
+export default function Navbar({ cardControl }: NavbarProps) {
 	let [newPostCard, setNewPostCard] = useState(() => "postCardHidden");
 
 	let [GlobalState, dispatchGlobalState] = useContext(GlobalContext);
@@ -104,8 +108,9 @@ export default function Navbar() {
 	);
 
 	useEffect(() => {
-		reAuthenticate();
-	}, []);
+		//reAuthenticate();
+		accountCardDispatch(cardControl);
+	}, [cardControl]);
 
 	return (
 		<React.Fragment>

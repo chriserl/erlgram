@@ -1,11 +1,22 @@
-import Link from "next/link";
+import { useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import homeStyles from "./home.module.scss";
 
+interface accountCardAction {
+	type?: "SIGNIN" | "SIGNUP";
+}
+
+type cardTypes = "SIGNIN" | "SIGNUP";
+
 export default function Home() {
+	const [card, setCard] = useState<accountCardAction>({});
+
+	const handleCardType = (cardtype: cardTypes) =>
+		setCard(() => ({ type: cardtype }));
+
 	return (
 		<div className={homeStyles.homeContainer}>
-			<Navbar />
+			<Navbar cardControl={card} />
 			<div className={homeStyles.home}>
 				<div>
 					<span
@@ -17,11 +28,12 @@ export default function Home() {
 						</p>
 						<p className={homeStyles.mainText}>erlgram</p>
 					</div>
-					<Link href="/braimah">
-						<button className={`primary-button psm ${homeStyles.cta}`}>
-							Explore
-						</button>
-					</Link>
+					<button
+						onClick={() => handleCardType("SIGNUP")}
+						className={`primary-button psm ${homeStyles.cta}`}
+					>
+						Explore
+					</button>
 				</div>
 			</div>
 		</div>
