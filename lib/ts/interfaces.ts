@@ -5,8 +5,12 @@ export type GlobalContextShape = [
 
 export interface GlobalAccountShape {
 	authorized: boolean;
-	userName?: string;
-	userLink?: string;
+	account?: { userName: string; userLink: string; userEmail: string };
+	stats?: {
+		postsCount: number;
+		followersCount: number;
+		followingCount: number;
+	};
 }
 
 export interface SignInData {

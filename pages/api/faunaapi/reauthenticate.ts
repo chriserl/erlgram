@@ -9,7 +9,10 @@ export default async (request, response) => {
 		await faunaDb
 			.getAccount(FMAIL)
 			.then((apiResponse) => {
-				if (apiResponse === "apiError") {
+				if (
+					apiResponse.account === "Unauthorized" ||
+					apiResponse.stats === "Unauthorized"
+				) {
 					response
 						.status(500)
 						.send(JSON.stringify({ apiResponse: apiResponse }));

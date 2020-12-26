@@ -10,7 +10,7 @@ export default function Index() {
 
 	useReauthorizeUser();
 
-	GlobalState.userLink && useRedirect(GlobalState.userLink);
+	GlobalState.authorized && useRedirect(GlobalState.account.userLink);
 
 	return (
 		<div>

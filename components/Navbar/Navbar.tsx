@@ -9,6 +9,7 @@ import {
 	AccountData,
 } from "../../lib/ts/interfaces";
 import SignUpCard from "../../components/UiCards/SignUpCard";
+import AccountCard from "../../components/UiCards/AccountCard";
 import PostModal from "../../components/UiCards/PostModal";
 import Brand from "../UiCards/Brand";
 import navbarStyles from "./navbar.module.scss";
@@ -86,8 +87,8 @@ export default function Navbar({ cardControl }: NavbarProps) {
 				likes: 0,
 				saves: 0,
 				author: {
-					link: GlobalState.userLink,
-					name: GlobalState.userName,
+					link: GlobalState.account.userLink,
+					name: GlobalState.account.userName,
 				},
 			},
 		};
@@ -174,14 +175,20 @@ export default function Navbar({ cardControl }: NavbarProps) {
 							<span className="bi-camera-fill small-icon"></span>
 						</button>
 					</li>
-					<li className={navbarStyles.navItem}>
-						<button
-							className="light-icon-button-bordered"
-							onClick={() => accountCardDispatch({ type: "SIGNIN" })}
-						>
-							<span className="bi-at regular-icon"></span>
-						</button>
-					</li>
+					{GlobalState.authorized === false ? (
+						<li className={navbarStyles.navItem}>
+							<button
+								className="light-icon-button-bordered"
+								onClick={() => accountCardDispatch({ type: "SIGNIN" })}
+							>
+								<span className="bi-at regular-icon"></span>
+							</button>
+						</li>
+					) : (
+						<li className={navbarStyles.navItem}>
+							<AccountCard accountData={GlobalState} />
+						</li>
+					)}
 				</ul>
 			</nav>
 		</React.Fragment>

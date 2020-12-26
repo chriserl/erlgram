@@ -8,14 +8,38 @@ export class FaunaClientFunctions {
 	private faunaClient = new faunadb.Client({ secret: this.faunaKey });
 	private faunaQuery = faunadb.query;
 
-	getAccount = async (userEmail: string) =>
-		await this.faunaClient
+	getAccount = async (accountEmail: string) => {
+		let account = await this.faunaClient
 			.query(
 				Select(
 					["data", "account"],
-					Get(Match(Index("search_by_email"), userEmail))
+					Get(Match(Index("search_by_email"), accountEmail))
 				)
 			)
 			.then((faunaResponse) => faunaResponse)
-			.catch((e) => e);
+			.catch((e) => "Unauthorized");
+
+		let stats = await this.faunaClient
+			.query(
+				Select(
+					["data", "stats"],
+					Get(Match(Index("search_by_email"), accountEmail))
+				)
+			)
+			.then((faunaResponse) => faunaResponse)
+			.catch((e) => "Unauthorized");
+
+		return { account, stats };
+	};
+
+	// getAccount = async (userEmail: string) =>
+	// 	await this.faunaClient
+	// 		.query(
+	// 			Select(
+	// 				["data", "account"],
+	// 				Get(Match(Index("search_by_email"), userEmail))
+	// 			)
+	// 		)
+	// 		.then((faunaResponse) => faunaResponse)
+	// 		.catch((e) => e);
 }

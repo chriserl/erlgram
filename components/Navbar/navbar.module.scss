@@ -35,7 +35,7 @@
 	}
 
 	.navItems {
-		@include flex;
+		@include flex($align: flex-start);
 
 		@include tab-screen {
 			margin-left: auto;

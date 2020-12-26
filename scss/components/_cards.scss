@@ -238,3 +238,84 @@
 		}
 	}
 }
+
+.account-card-container {
+	.noModal {
+		margin: 0;
+		padding: 0;
+
+		.control-button {
+			position: relative;
+		}
+		.account-content {
+			@include d-none;
+		}
+	}
+
+	.accountModal {
+		.control-container {
+			width: 100%;
+			@include flex($justify: flex-end);
+		}
+
+		.account-content {
+			position: absolute;
+			top: $spacing-22;
+			right: $spacing-5;
+			padding: 0 $spacing-8 $spacing-12;
+			border-radius: $spacing-5;
+			background: white;
+
+			@include tab-screen {
+				width: 24%;
+				margin: 0;
+			}
+
+			.at-icon {
+				width: max-content;
+				margin: 0 auto $spacing-10;
+			}
+
+			.main-content {
+				width: max-content;
+				margin: 0 auto;
+				text-align: center;
+
+				.stats {
+					@include flex;
+					width: max-content;
+					margin-top: $spacing-13;
+
+					.stat {
+						text-align: center;
+
+						&:nth-child(2) {
+							margin: 0 $spacing-5;
+
+							@include tab-screen {
+								margin: 0 $spacing-7;
+							}
+						}
+
+						p:nth-child(1) {
+							color: $theme-main-800;
+							margin-bottom: $spacing-1;
+						}
+
+						p:nth-child(2) {
+							color: $gray-400;
+						}
+					}
+				}
+
+				.cta {
+					margin-top: $spacing-12;
+
+					button {
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+}

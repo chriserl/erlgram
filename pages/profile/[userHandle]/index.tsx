@@ -36,11 +36,11 @@ export default function UserProfile() {
 	};
 
 	const handleFollowing = () => {
-		if (GlobalState.userLink) {
-			GlobalState.userLink &&
+		if (GlobalState.account.userLink) {
+			GlobalState.account.userLink &&
 				createFollowing({
 					creatorLink: userHandle.slice(9),
-					followerLink: GlobalState.userLink,
+					followerLink: GlobalState.account.userLink,
 				});
 			setIsFollowing(() => (isFollowing === true ? false : true));
 		}

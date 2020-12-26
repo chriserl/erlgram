@@ -308,8 +308,6 @@ export class FaunaAdminFunctions {
 			.catch((e) => e);
 
 	getAccountByLink = async (accountLink: string) => {
-		console.log(accountLink);
-
 		let account = await this.faunaClient
 			.query(
 				Select(
