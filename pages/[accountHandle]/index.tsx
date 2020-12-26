@@ -11,19 +11,19 @@ export default function AccountDashboard() {
 			postImage: "/images/profileimages/prof1.jpg",
 		},
 		{
-			link: "amy_bra..",
+			link: "braimah",
 			likes: 12,
 			comments: 234,
 			postImage: "/images/profileimages/prof2.jpg",
 		},
 		{
-			link: "amy_bra..",
+			link: "chriserl",
 			likes: 12,
 			comments: 234,
 			postImage: "/images/profileimages/prof3.jpg",
 		},
 		{
-			link: "amy_bra..",
+			link: "chriserl",
 			likes: 12,
 			comments: 234,
 			postImage: "/images/profileimages/prof4.jpg",

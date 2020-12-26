@@ -2,7 +2,12 @@ import React, { useReducer, useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { GlobalContext } from "../../Contexts/GlobalContext";
 import SignInCard from "../../components/UiCards/SignInCard";
-import { SignInData, SignUpData, PostShape } from "../../lib/ts/interfaces";
+import {
+	SignInData,
+	SignUpData,
+	PostShape,
+	AccountData,
+} from "../../lib/ts/interfaces";
 import SignUpCard from "../../components/UiCards/SignUpCard";
 import PostModal from "../../components/UiCards/PostModal";
 import Brand from "../UiCards/Brand";
@@ -41,8 +46,26 @@ export default function Navbar({ cardControl }: NavbarProps) {
 	};
 
 	const signUp = async (signUpData: SignUpData) => {
+		let accountDetails: AccountData = {
+			...signUpData,
+			...signUpData["SignUpData"],
+			data: {
+				...signUpData["SignUpData"]["data"],
+				feed: [],
+				posts: [],
+				social: {
+					followers: [],
+					following: [],
+				},
+				stats: {
+					postsCount: 0,
+					followersCount: 0,
+					followingCount: 0,
+				},
+			},
+		};
 		await axios
-			.post("/api/faunaapi/signup", signUpData)
+			.post("/api/faunaapi/signup", { accountDetails })
 			.then((apiResponse) =>
 				dispatchGlobalState({
 					type: "UPDATE",

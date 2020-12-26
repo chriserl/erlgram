@@ -28,20 +28,25 @@ export interface SignUpData {
 }
 
 export interface AccountData {
+	credentials: {
+		password: string;
+	};
 	data: {
 		account: {
 			userName: string;
 			userLink: string;
 			userEmail: string;
 		};
+		feed: [];
+		posts: [];
 		social: {
-			following: string[];
-			followingCount: number;
-			followers: string[];
+			followers: [];
+			following: [];
+		};
+		stats: {
+			postsCount: number;
 			followersCount: number;
-			posts: number[];
-			saved: number[];
-			feed: number[];
+			followingCount: number;
 		};
 	};
 }

@@ -4,7 +4,7 @@ import { SignUpData } from "../../../lib/ts/interfaces";
 
 export default async (request, response) => {
 	const faunaKey = process.env.FAUNA_ADMIN_KEY;
-	const userData: SignUpData = request.body["SignUpData"];
+	const userData: SignUpData = request.body["accountDetails"];
 	const faunaDb = new FaunaAdminFunctions();
 
 	await faunaDb

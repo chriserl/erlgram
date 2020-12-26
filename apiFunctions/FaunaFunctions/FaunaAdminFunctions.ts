@@ -74,9 +74,11 @@ export class FaunaAdminFunctions {
 										[]
 									)
 								),
+							},
+							stats: {
 								followersCount: Add(
 									Select(
-										["data", "social", "followersCount"],
+										["data", "stats", "followersCount"],
 										Get(Match(Index("search_by_link"), creatorLink)),
 										0
 									),
@@ -115,9 +117,11 @@ export class FaunaAdminFunctions {
 									),
 									[]
 								),
+							},
+							stats: {
 								followersCount: Subtract(
 									Select(
-										["data", "social", "followersCount"],
+										["data", "stats", "followersCount"],
 										Get(Match(Index("search_by_link"), creatorLink)),
 										0
 									),
@@ -149,6 +153,8 @@ export class FaunaAdminFunctions {
 										[]
 									)
 								),
+							},
+							stats: {
 								followingCount: Add(
 									Select(
 										["data", "social", "followingCount"],
@@ -187,9 +193,11 @@ export class FaunaAdminFunctions {
 										Not(Equals(creatorLink, Var("following")))
 									)
 								),
+							},
+							stats: {
 								followingCount: Subtract(
 									Select(
-										["data", "social", "followingCount"],
+										["data", "stats", "followingCount"],
 										Get(Match(Index("search_by_link"), followerLink)),
 										0
 									),
@@ -226,14 +234,22 @@ export class FaunaAdminFunctions {
 					Select("ref", Get(Match(Index("search_by_email"), userEmail))),
 					{
 						data: {
-							social: {
-								posts: Append(
-									postReference,
+							posts: Append(
+								postReference,
+								Select(
+									["data", "posts"],
+									Get(Match(Index("search_by_email"), userEmail)),
+									[]
+								)
+							),
+							stats: {
+								postsCount: Add(
 									Select(
-										["data", "social", "posts"],
+										["data", "stats", "postsCount"],
 										Get(Match(Index("search_by_email"), userEmail)),
-										[]
-									)
+										0
+									),
+									1
 								),
 							},
 						},
@@ -264,16 +280,14 @@ export class FaunaAdminFunctions {
 							),
 							{
 								data: {
-									social: {
-										feed: Append(
-											postReference,
-											Select(
-												["data", "social", "feed"],
-												Get(Match(Index("search_by_link"), Var("follower"))),
-												[]
-											)
-										),
-									},
+									feed: Append(
+										postReference,
+										Select(
+											["data", "feed"],
+											Get(Match(Index("search_by_link"), Var("follower"))),
+											[]
+										)
+									),
 								},
 							}
 						)
@@ -292,6 +306,32 @@ export class FaunaAdminFunctions {
 			)
 			.then((faunaResponse) => faunaResponse)
 			.catch((e) => e);
+
+	getAccountByLink = async (accountLink: string) => {
+		console.log(accountLink);
+
+		let account = await this.faunaClient
+			.query(
+				Select(
+					["data", "account"],
+					Get(Match(Index("search_by_link"), accountLink))
+				)
+			)
+			.then((faunaResponse) => faunaResponse)
+			.catch((e) => e);
+
+		let stats = await this.faunaClient
+			.query(
+				Select(
+					["data", "stats"],
+					Get(Match(Index("search_by_link"), accountLink))
+				)
+			)
+			.then((faunaResponse) => faunaResponse)
+			.catch((e) => e);
+
+		return { account, stats };
+	};
 
 	signUp = async (userData: SignUpData) =>
 		await this.faunaClient
