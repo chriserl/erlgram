@@ -1,13 +1,9 @@
 import { useState } from "react";
 import Link from "next/link";
+import { PostShape } from "../../lib/ts/interfaces";
 
 interface PostCardProps {
-	post: {
-		link: string;
-		postImage: string;
-		likes: number;
-		comments: number;
-	};
+	post: PostShape;
 }
 
 export default function PostCard({ post }: PostCardProps) {
@@ -27,29 +23,26 @@ export default function PostCard({ post }: PostCardProps) {
 		<span className="post-card">
 			<div className="post-card-container">
 				<img
-					src={post.postImage}
+					src={post.data.image}
 					alt="post"
 					className="post-image"
 					onClick={() => toggleDescription()}
 				/>
 				<div className="post-controls">
-					<Link href={`profile/${post.link}`}>
-						<a className="post-user-link psb">{`@${post.link}`}</a>
+					<Link href={`profile/${post.data.author.link}`}>
+						<a className="post-user-link psb">{`@${post.data.author.link}`}</a>
 					</Link>
 					<div className="actions">
 						<div className="like">
 							<span className="regular-icon bi-heart like-icon"></span>
-							<p className="like-count plb">{post.likes}</p>
+							<p className="like-count plb">{post.data.likes}</p>
 						</div>
 						<div className="save">
 							<span className="regular-icon bi-bookmark save-icon"></span>
 						</div>
 					</div>
 				</div>
-				<p className={`psm ${descriptionVisibility}`}>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
-					amet quisquam veritatis sapiente libero?
-				</p>
+				<p className={`psm ${descriptionVisibility}`}>{post.data.caption}</p>
 			</div>
 		</span>
 	);

@@ -1,88 +1,25 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useReauthorizeUser } from "../../lib/hooks/react";
 import Navbar from "../../components/Navbar/Navbar";
 import PostCard from "../../components/UiCards/PostCard";
 import dashboardStyles from "./accountDashboard.module.scss";
+import reauthenticate from "../api/faunaapi/reauthenticate";
 
 export default function AccountDashboard() {
-	const posts = [
-		{
-			link: "braimah",
-			likes: 12,
-			comments: 234,
-			postImage: "/images/profileimages/prof1.jpg",
-		},
-		{
-			link: "braimah",
-			likes: 12,
-			comments: 234,
-			postImage: "/images/profileimages/prof2.jpg",
-		},
-		{
-			link: "chriserl",
-			likes: 12,
-			comments: 234,
-			postImage: "/images/profileimages/prof3.jpg",
-		},
-		{
-			link: "chriserl",
-			likes: 12,
-			comments: 234,
-			postImage: "/images/profileimages/prof4.jpg",
-		},
-		{
-			link: "amy_bra..",
-			likes: 12,
-			comments: 234,
-			postImage: "/images/profileimages/prof5.jpg",
-		},
-		{
-			link: "amy_bra..",
-			likes: 12,
-			comments: 234,
-			postImage: "/images/profileimages/prof6.jpg",
-		},
-		{
-			link: "amy_bra..",
-			likes: 12,
-			comments: 234,
-			postImage: "/images/profileimages/prof7.jpg",
-		},
-		{
-			link: "amy_bra..",
-			likes: 12,
-			comments: 234,
-			postImage: "/images/profileimages/prof8.jpg",
-		},
-		{
-			link: "amy_bra..",
-			likes: 12,
-			comments: 234,
-			postImage: "/images/profileimages/prof9.jpg",
-		},
-		{
-			link: "amy_bra..",
-			likes: 12,
-			comments: 234,
-			postImage: "/images/profileimages/prof10.jpg",
-		},
-		{
-			link: "amy_bra..",
-			likes: 12,
-			comments: 234,
-			postImage: "/images/profileimages/prof11.jpg",
-		},
-		{
-			link: "amy_bra..",
-			likes: 12,
-			comments: 234,
-			postImage: "/images/profileimages/prof12.jpg",
-		},
-		{
-			link: "@mieke..",
-			likes: 13,
-			comments: 234,
-			postImage: "/images/profileimages/prof13.jpg",
-		},
-	];
+	useReauthorizeUser();
+
+	const [feed, setFeed] = useState(() => null);
+
+	const getPosts = async () => {
+		await axios.get("/api/faunaapi/getposts").then((response) => {
+			setFeed(() => response.data["apiResponse"]);
+		});
+	};
+
+	useEffect(() => {
+		getPosts();
+	}, []);
 
 	return (
 		<div className={dashboardStyles.accountDashboard}>
@@ -90,9 +27,7 @@ export default function AccountDashboard() {
 
 			<main className={dashboardStyles.feed}>
 				<div className={dashboardStyles.feedItems}>
-					{posts.map((post) => (
-						<PostCard post={post} />
-					))}
+					{feed && feed.map((feedItem) => <PostCard post={feedItem} />)}
 				</div>
 			</main>
 		</div>

@@ -1,6 +1,6 @@
 import * as faunadb from "faunadb";
 
-const { Select, Get, Match, Index } = faunadb.query;
+const { Select, Get, Match, Index, Map, Lambda, Var } = faunadb.query;
 
 export class FaunaClientFunctions {
 	constructor(private faunaKey: string) {}
@@ -32,14 +32,17 @@ export class FaunaClientFunctions {
 		return { account, stats };
 	};
 
-	// getAccount = async (userEmail: string) =>
-	// 	await this.faunaClient
-	// 		.query(
-	// 			Select(
-	// 				["data", "account"],
-	// 				Get(Match(Index("search_by_email"), userEmail))
-	// 			)
-	// 		)
-	// 		.then((faunaResponse) => faunaResponse)
-	// 		.catch((e) => e);
+	getPosts = async (userEmail: string) =>
+		await this.faunaClient
+			.query(
+				Map(
+					Select(
+						["data", "feed"],
+						Get(Match(Index("search_by_email"), userEmail))
+					),
+					Lambda("post", Get(Var("post")))
+				)
+			)
+			.then((faunaResponse) => faunaResponse)
+			.catch((e) => "Unauthorized");
 }
