@@ -1,5 +1,6 @@
 import React, { useReducer, useState, useContext, useEffect } from "react";
 import axios from "axios";
+import ImageKit from "imagekit-javascript";
 import { GlobalContext } from "../../Contexts/GlobalContext";
 import SignInCard from "../../components/UiCards/SignInCard";
 import {
@@ -23,14 +24,38 @@ interface NavbarProps {
 }
 
 interface PostFormShape {
-	image: string;
+	image: File;
 	caption: string;
 }
+
+let imagekit = new ImageKit({
+	publicKey: "public_8ADQhfc02b69LM2ICJM1saHkuPw=",
+	urlEndpoint: "https://ik.imagekit.io/erldev",
+	authenticationEndpoint: "/api/imagekit/authenticate",
+});
 
 export default function Navbar({ cardControl }: NavbarProps) {
 	let [newPostCard, setNewPostCard] = useState(() => "postCardHidden");
 
 	let [GlobalState, dispatchGlobalState] = useContext(GlobalContext);
+
+	const toggleNewPostCard = () => {
+		setNewPostCard(() =>
+			newPostCard === "postCardHidden" ? "postCardVisible" : "postCardHidden"
+		);
+	};
+
+	const accountCardReducer = (
+		currentState: string,
+		action: accountCardAction
+	) => {
+		return !action.type ? "noCard" : action.type;
+	};
+
+	let [accountCard, accountCardDispatch] = useReducer(
+		accountCardReducer,
+		"noCard"
+	);
 
 	const signIn = async (signInData: SignInData) => {
 		await axios
@@ -78,46 +103,42 @@ export default function Navbar({ cardControl }: NavbarProps) {
 		accountCardDispatch({});
 	};
 
-	const createPost = async (postData: PostFormShape) => {
-		const timestamp = Date.now();
-		const post: PostShape = {
-			data: {
-				...postData,
-				timestamp,
-				likes: 0,
-				saves: 0,
-				author: {
-					link: GlobalState.account.userLink,
-					name: GlobalState.account.userName,
-				},
-			},
-		};
-
+	const uploadPost = async (post: PostShape) => {
 		await axios
 			.post("/api/faunaapi/createpost", post)
-			.then((apiResponse) => console.log(apiResponse))
 			.catch((apiError) => console.error(apiError));
 
 		toggleNewPostCard();
 	};
 
-	const toggleNewPostCard = () => {
-		setNewPostCard(() =>
-			newPostCard === "postCardHidden" ? "postCardVisible" : "postCardHidden"
+	const createPost = async (postData: PostFormShape) => {
+		let post: PostShape;
+
+		await imagekit.upload(
+			{
+				file: postData.image,
+				fileName: postData.image.name,
+				folder: "userposts",
+			},
+			(err, result) => {
+				post = {
+					data: {
+						image: result["url"],
+						caption: postData.caption,
+						timestamp: Date.now(),
+						likes: 0,
+						saves: 0,
+						author: {
+							link: GlobalState.account.userLink,
+							name: GlobalState.account.userName,
+						},
+					},
+				};
+
+				uploadPost(post);
+			}
 		);
 	};
-
-	const accountCardReducer = (
-		currentState: string,
-		action: accountCardAction
-	) => {
-		return !action.type ? "noCard" : action.type;
-	};
-
-	let [accountCard, accountCardDispatch] = useReducer(
-		accountCardReducer,
-		"noCard"
-	);
 
 	useEffect(() => {
 		cardControl && accountCardDispatch(cardControl);

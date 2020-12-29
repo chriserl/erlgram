@@ -375,6 +375,7 @@ export class FaunaAdminFunctions {
 				await this.appendPostToCreator(postReference, userEmail);
 				await this.appendPostToFollowers(postReference, userEmail);
 			})
+			.then(() => "post created")
 			.catch(() => "Unauthorized");
 
 	createFollowing = async (followingData: createFollowing, userId: string) => {

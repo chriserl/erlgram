@@ -1,19 +1,22 @@
-import React, { useState } from "react";
-import { useReducer } from "react";
-import { PostShape } from "../../lib/ts/interfaces";
+import React, { useState, useReducer } from "react";
 
 interface PostModalProps {
 	closeCard: VoidFunction;
 	createPostAction: Function;
 }
 
-interface formAction {
-	type: "IMAGE" | "CAPTION";
+interface formImageAction {
+	type: "IMAGE";
+	payload: File;
+}
+
+interface formCaptionAction {
+	type: "CAPTION";
 	payload: string;
 }
 
 interface PostFormShape {
-	image: string;
+	image: File | null;
 	caption: string;
 }
 
@@ -21,12 +24,15 @@ export default function PostModal({
 	closeCard,
 	createPostAction,
 }: PostModalProps) {
+	const [formImage, setFormImage] = useState(() => null);
+
 	const formReducer = (
 		prevState: PostFormShape,
-		action: formAction
+		action: formCaptionAction | formImageAction
 	): PostFormShape => {
 		switch (action.type) {
 			case "IMAGE": {
+				setFormImage(() => URL.createObjectURL(action.payload));
 				return { ...prevState, image: action.payload };
 			}
 
@@ -34,11 +40,10 @@ export default function PostModal({
 				return { ...prevState, caption: action.payload };
 			}
 		}
-		console.log(formState);
 	};
 
 	let [formState, formStateDispatch] = useReducer(formReducer, {
-		image: "",
+		image: null,
 		caption: "",
 	});
 
@@ -72,11 +77,11 @@ export default function PostModal({
 								onChange={(uploadEvent) =>
 									formStateDispatch({
 										type: "IMAGE",
-										payload: URL.createObjectURL(uploadEvent.target.files[0]),
+										payload: uploadEvent.target.files[0],
 									})
 								}
 							/>
-							{formState.image.length === 0 ? (
+							{!formImage ? (
 								<React.Fragment>
 									<label htmlFor="file-upload" className="file-upload-label">
 										<p className="upload-button psb">
@@ -91,11 +96,7 @@ export default function PostModal({
 							) : (
 								<React.Fragment>
 									<label htmlFor="file-upload" className="file-upload-label">
-										<img
-											src={formState.image}
-											alt="post"
-											className="post-image"
-										/>
+										<img src={formImage} alt="post" className="post-image" />
 									</label>
 
 									<p className="psm select-text">

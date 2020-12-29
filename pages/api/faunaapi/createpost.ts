@@ -6,7 +6,8 @@ export default async (request, response) => {
 	const { FMAIL, FID } = request.cookies;
 	if (FMAIL && FID) {
 		const faunaDb = new FaunaAdminFunctions();
-		faunaDb.createPost(newPost, FID, FMAIL);
+		let postResponse = faunaDb.createPost(newPost, FID, FMAIL);
+		response.send(postResponse);
 	} else {
 		response
 			.status(401)
