@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useState, useContext, useEffect } from "react";
 import { createFollowing } from "../../../lib/ts/interfaces";
 import { GlobalContext } from "../../../Contexts/GlobalContext";
+import { useReauthorizeUser } from "../../../lib/hooks/react";
 import Navbar from "../../../components/Navbar/Navbar";
 import profileStyles from "./profile.module.scss";
 
@@ -16,6 +17,8 @@ interface profileData {
 }
 
 export default function UserProfile() {
+	useReauthorizeUser();
+
 	let [GlobalState, dispatchGlobalState] = useContext(GlobalContext);
 
 	let [isFollowing, setIsFollowing] = useState(() => true);
@@ -47,13 +50,11 @@ export default function UserProfile() {
 	};
 
 	const getProfile = async (creatorLink: any) => {
-		console.log(creatorLink);
 		await axios
 			.post("/api/faunaapi/getprofile", {
 				creatorLink,
 			})
 			.then((apiResponse) => {
-				//console.log(apiResponse.data);
 				setProfileData(() => apiResponse.data);
 			})
 			.catch((apiError) => console.error(apiError));
@@ -62,7 +63,6 @@ export default function UserProfile() {
 	useEffect(() => {
 		if (router.asPath !== router.route) {
 			creator = router.query["userHandle"] as string;
-			console.log(creator);
 			getProfile(creator);
 		}
 	}, []);
@@ -125,4 +125,8 @@ export default function UserProfile() {
 			<div className={profileStyles.userPosts}></div>
 		</div>
 	);
+}
+
+export async function getServerSideProps() {
+	return { props: {} };
 }

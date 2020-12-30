@@ -5,6 +5,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import PostCard from "../../components/UiCards/PostCard";
 import dashboardStyles from "./accountDashboard.module.scss";
 import reauthenticate from "../api/faunaapi/reauthenticate";
+import { PostShape } from "../../lib/ts/interfaces";
 
 export default function AccountDashboard() {
 	useReauthorizeUser();
@@ -27,7 +28,10 @@ export default function AccountDashboard() {
 
 			<main className={dashboardStyles.feed}>
 				<div className={dashboardStyles.feedItems}>
-					{feed && feed.map((feedItem) => <PostCard post={feedItem} />)}
+					{feed &&
+						feed.map((feedItem: PostShape) => (
+							<PostCard post={feedItem} key={feedItem.data.timestamp} />
+						))}
 				</div>
 			</main>
 		</div>
