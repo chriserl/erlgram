@@ -6,17 +6,12 @@ export default async (request, response) => {
 	if (FMAIL && FID) {
 		const faunaDb = new FaunaClientFunctions(FID);
 
-		await faunaDb
-			.getPosts(FMAIL)
-			.then((apiResponse) => {
-				if (apiResponse === "Unauthorized") {
-					response
-						.status(500)
-						.send(JSON.stringify({ apiResponse: apiResponse }));
-				} else {
-					response.send(JSON.stringify({ apiResponse: apiResponse }));
-				}
-			})
-			.catch((apiError) => response.status(500).json(apiError));
+		let postData = await faunaDb.getPosts(FMAIL);
+
+		if (postData === "Unauthorized") {
+			response.status(500).send(JSON.stringify({ apiResponse: postData }));
+		} else {
+			response.send(JSON.stringify({ apiResponse: postData }));
+		}
 	}
 };

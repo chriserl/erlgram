@@ -38,7 +38,7 @@ export class FaunaAdminFunctions {
 		await new faunadb.Client({ secret: userId })
 			.query(this.faunaQuery.HasCurrentToken())
 			.then((response) => response)
-			.catch((error) => console.log(error["description"]));
+			.catch(() => "Unauthorized");
 
 	private checkFollowing = async (creatorLink: string, followerLink: string) =>
 		await this.faunaClient
@@ -53,7 +53,7 @@ export class FaunaAdminFunctions {
 				)
 			)
 			.then((ress) => ress)
-			.catch((error) => console.log(error["description"]));
+			.catch(() => "faunaError");
 
 	private appendFollowingToCreator = async (
 		creatorLink: string,
@@ -89,7 +89,7 @@ export class FaunaAdminFunctions {
 					}
 				)
 			)
-			.catch((error) => console.log(error["description"]));
+			.catch(() => "faunaError");
 	};
 
 	private removeFollowingFromCreator = async (
@@ -132,7 +132,7 @@ export class FaunaAdminFunctions {
 					}
 				)
 			)
-			.catch((error) => console.log(error["description"]));
+			.catch(() => "faunaError");
 
 	private appendFollowingToFollower = async (
 		creatorLink: string,
@@ -168,7 +168,7 @@ export class FaunaAdminFunctions {
 					}
 				)
 			)
-			.catch((error) => console.log(error["description"]));
+			.catch(() => "faunaError");
 	};
 
 	private removeFollowingFromFollower = async (
@@ -208,7 +208,7 @@ export class FaunaAdminFunctions {
 					}
 				)
 			)
-			.catch((error) => console.log(error["description"]));
+			.catch(() => "faunaError");
 
 	private postToUserPosts = async (postData: PostShape) =>
 		await this.faunaClient
@@ -222,7 +222,7 @@ export class FaunaAdminFunctions {
 				)
 			)
 			.then((postDocument) => postDocument["ref"])
-			.catch((faunaError) => console.log(faunaError["description"]));
+			.catch(() => "faunaError");
 
 	private appendPostToCreator = async (
 		postReference: number,
@@ -256,7 +256,7 @@ export class FaunaAdminFunctions {
 					}
 				)
 			)
-			.catch((error) => console.log(error["description"]));
+			.catch(() => "faunaError");
 	};
 
 	private appendPostToFollowers = async (
@@ -294,7 +294,7 @@ export class FaunaAdminFunctions {
 					)
 				)
 			)
-			.catch((error) => console.log(error["description"]));
+			.catch(() => "faunaError");
 
 	getAccount = async (userEmail: string) =>
 		await this.faunaClient
@@ -305,7 +305,7 @@ export class FaunaAdminFunctions {
 				)
 			)
 			.then((faunaResponse) => faunaResponse)
-			.catch((e) => e);
+			.catch((e) => "resourceUnavailable");
 
 	getAccountByLink = async (accountLink: string) => {
 		let account = await this.faunaClient
@@ -316,7 +316,7 @@ export class FaunaAdminFunctions {
 				)
 			)
 			.then((faunaResponse) => faunaResponse)
-			.catch((e) => e);
+			.catch(() => "resourceUnavailable");
 
 		let stats = await this.faunaClient
 			.query(
@@ -326,7 +326,7 @@ export class FaunaAdminFunctions {
 				)
 			)
 			.then((faunaResponse) => faunaResponse)
-			.catch((e) => e);
+			.catch(() => "resourceUnavailable");
 
 		return { account, stats };
 	};
@@ -345,7 +345,7 @@ export class FaunaAdminFunctions {
 					credentials: { password: userData.credentials.password },
 				})
 			)
-			.catch(() => "apiError");
+			.catch(() => "faunaError");
 
 	signIn = async (userCredentials: SignInData) =>
 		await this.faunaClient
@@ -362,7 +362,7 @@ export class FaunaAdminFunctions {
 				authToken: faunaResponse["secret"],
 				userAccount: await this.getAccount(userCredentials.userEmail),
 			}))
-			.catch(() => "apiError");
+			.catch(() => "faunaError");
 
 	createPost = async (postData: PostShape, userId: string, userEmail: string) =>
 		new faunadb.Client({ secret: userId })
@@ -375,7 +375,7 @@ export class FaunaAdminFunctions {
 				await this.appendPostToCreator(postReference, userEmail);
 				await this.appendPostToFollowers(postReference, userEmail);
 			})
-			.then(() => "post created")
+			.then(() => "postCreated")
 			.catch(() => "Unauthorized");
 
 	createFollowing = async (followingData: createFollowing, userId: string) => {
@@ -384,8 +384,8 @@ export class FaunaAdminFunctions {
 			followingData.followerLink
 		);
 
-		if (!isFollowing) {
-			await this.appendFollowingToCreator(
+		if (!isFollowing || isFollowing === "faunaError") {
+			return await this.appendFollowingToCreator(
 				followingData.creatorLink,
 				followingData.followerLink
 			)
@@ -395,20 +395,22 @@ export class FaunaAdminFunctions {
 						followingData.followerLink
 					)
 				)
-				.catch((error) => console.log(error["description"]));
+				.catch(() => "faunaError");
 		}
 
-		if (isFollowing) {
-			await this.removeFollowingFromCreator(
+		if (isFollowing || isFollowing !== "faunaError") {
+			return await this.removeFollowingFromCreator(
 				followingData.creatorLink,
 				followingData.followerLink
-			).then(
-				async () =>
-					await this.removeFollowingFromFollower(
-						followingData.creatorLink,
-						followingData.followerLink
-					)
-			);
+			)
+				.then(
+					async () =>
+						await this.removeFollowingFromFollower(
+							followingData.creatorLink,
+							followingData.followerLink
+						)
+				)
+				.catch(() => "faunaError");
 		}
 	};
 }

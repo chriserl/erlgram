@@ -9,10 +9,18 @@ export default async (request, response) => {
 		const faunaDb = new FaunaAdminFunctions();
 		const isAuthorized = await faunaDb.isAuthorized(FID);
 
-		isAuthorized && (await faunaDb.createFollowing(createFollowingData, FID));
+		if (isAuthorized === "Unauthorized") {
+			response.json({ apiResponse: isAuthorized });
+		} else {
+			let followingResponse = await faunaDb.createFollowing(
+				createFollowingData,
+				FID
+			);
+			followingResponse === "faunaError"
+				? response.json({ apiResponse: "apiError" })
+				: response.staus(200).json({ apiResponse: "followingCreated" });
+		}
 	} else {
-		response
-			.status(401)
-			.send(JSON.stringify({ apiResponse: "Not Authorized" }));
+		response.status(401).send(JSON.stringify({ apiResponse: "Unauthorized" }));
 	}
 };
