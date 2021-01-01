@@ -80,9 +80,9 @@ export default function SignUpCard({ emptyAccountAction, signUpAction }) {
 
 				<a className="brand">
 					<span
-						className={"bi-instagram regular-icon brand-icon brandIcon"}
+						className={"bi-hexagon medium-icon brand-icon brandIcon"}
 					></span>
-					<h5 className="brandName">Erlgram</h5>
+					<h5 className="brandName">erlgram</h5>
 				</a>
 
 				<form className="signin-form" onSubmit={(event) => handleSubmit(event)}>
