@@ -40,7 +40,7 @@ export class FaunaAdminFunctions {
 			.then((response) => response)
 			.catch(() => "Unauthorized");
 
-	private checkFollowing = async (creatorLink: string, followerLink: string) =>
+	checkFollowing = async (creatorLink: string, followerLink: string) =>
 		await this.faunaClient
 			.query(
 				ContainsValue(

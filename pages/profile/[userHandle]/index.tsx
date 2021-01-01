@@ -3,9 +3,10 @@ import { useRouter } from "next/router";
 import { useState, useContext, useEffect } from "react";
 import { createFollowing } from "../../../lib/ts/interfaces";
 import { GlobalContext } from "../../../Contexts/GlobalContext";
-import { useReauthorizeUser } from "../../../lib/hooks/react";
+import { useReauthorizeUser, useFetch } from "../../../lib/hooks/react";
 import Navbar from "../../../components/Navbar/Navbar";
 import profileStyles from "./profile.module.scss";
+import { get } from "https";
 
 interface profileData {
 	account?: { userEmail?: string; userLink?: string; userName?: string };
@@ -17,17 +18,17 @@ interface profileData {
 }
 
 export default function UserProfile() {
+	const router = useRouter();
+
 	useReauthorizeUser();
 
 	let [GlobalState, dispatchGlobalState] = useContext(GlobalContext);
 
-	let [isFollowing, setIsFollowing] = useState(() => true);
+	let [isFollowing, setIsFollowing] = useState(() => false);
 
 	const [profileData, setProfileData] = useState<profileData>({});
 
 	const userHandle = useRouter().asPath;
-
-	const router = useRouter();
 
 	let creator: string;
 
@@ -60,12 +61,25 @@ export default function UserProfile() {
 			.catch((apiError) => console.error(apiError));
 	};
 
+	async function getFollowingStatus(creatorLink: string, followerLink: string) {
+		const following = await useFetch("faunaapi/checkfollowing", {
+			creatorLink: "chriserl",
+			followerLink: "braimah",
+		});
+
+		following === true && setIsFollowing(() => true);
+	}
+
 	useEffect(() => {
 		if (router.asPath !== router.route) {
 			creator = router.query["userHandle"] as string;
+
 			getProfile(creator);
+
+			GlobalState.account &&
+				getFollowingStatus(creator, GlobalState.account.userLink);
 		}
-	}, []);
+	}, [GlobalState]);
 
 	return (
 		<div className={profileStyles.userProfile}>
@@ -111,11 +125,11 @@ export default function UserProfile() {
 
 							<button
 								className={`${
-									isFollowing ? "primary-button psb" : "secondary-button psb"
+									isFollowing ? "secondary-button psb" : "primary-button psb"
 								} ${profileStyles.followButton}`}
 								onClick={() => handleFollowing()}
 							>
-								{isFollowing ? "Follow" : "Unfollow"}
+								{isFollowing ? "Unfollow" : "Follow"}
 							</button>
 						</div>
 					</div>
