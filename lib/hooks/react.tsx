@@ -8,11 +8,13 @@ const useReauthorizeUser = () => {
 	const reAuthenticate = async () => {
 		await axios
 			.get("/api/faunaapi/reauthenticate")
-			.then((apiResponse) =>
-				dispatchGlobalState({
-					type: "UPDATE",
-					payload: { ...apiResponse.data["apiResponse"], authorized: true },
-				})
+			.then(
+				(apiResponse) =>
+					apiResponse.data["apiResponse"] !== "Unauthorized" &&
+					dispatchGlobalState({
+						type: "UPDATE",
+						payload: { ...apiResponse.data["apiResponse"], authorized: true },
+					})
 			)
 			.catch((apiError) => console.error(apiError));
 	};

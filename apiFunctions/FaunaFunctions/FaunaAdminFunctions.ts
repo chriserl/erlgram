@@ -331,6 +331,30 @@ export class FaunaAdminFunctions {
 		return { account, stats };
 	};
 
+	getAccountByEmail = async (accountEmail: string) => {
+		let account = await this.faunaClient
+			.query(
+				Select(
+					["data", "account"],
+					Get(Match(Index("search_by_email"), accountEmail))
+				)
+			)
+			.then((faunaResponse) => faunaResponse)
+			.catch(() => "resourceUnavailable");
+
+		let stats = await this.faunaClient
+			.query(
+				Select(
+					["data", "stats"],
+					Get(Match(Index("search_by_email"), accountEmail))
+				)
+			)
+			.then((faunaResponse) => faunaResponse)
+			.catch(() => "resourceUnavailable");
+
+		return { account, stats };
+	};
+
 	signUp = async (userData: SignUpData) =>
 		await this.faunaClient
 			.query(
@@ -360,7 +384,7 @@ export class FaunaAdminFunctions {
 			)
 			.then(async (faunaResponse) => ({
 				authToken: faunaResponse["secret"],
-				userAccount: await this.getAccount(userCredentials.userEmail),
+				userAccount: await this.getAccountByEmail(userCredentials.userEmail),
 			}))
 			.catch(() => "faunaError");
 

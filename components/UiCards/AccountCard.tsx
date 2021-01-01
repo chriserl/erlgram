@@ -1,19 +1,18 @@
-import { useState } from "react";
 import { GlobalAccountShape } from "../../lib/ts/interfaces";
 
 interface AccountCardProps {
 	accountData: GlobalAccountShape;
+	toggleModal: VoidFunction;
+	modalState: string;
+	signOutAction: VoidFunction;
 }
 
-export default function AccountCard({ accountData }: AccountCardProps) {
-	const [modalState, setModalState] = useState(() => "noModal");
-
-	const toggleModal = () => {
-		setModalState(() =>
-			modalState === "noModal" ? "accountModal" : "noModal"
-		);
-	};
-
+export default function AccountCard({
+	accountData,
+	toggleModal,
+	modalState,
+	signOutAction,
+}: AccountCardProps) {
 	return (
 		<div className="account-card-container">
 			<div className={`account-card ${modalState}`}>
@@ -53,7 +52,12 @@ export default function AccountCard({ accountData }: AccountCardProps) {
 						</div>
 
 						<div className="cta">
-							<button className="secondary-button psb">sign out</button>
+							<button
+								onClick={() => signOutAction()}
+								className="secondary-button psb"
+							>
+								sign out
+							</button>
 						</div>
 					</div>
 				</div>

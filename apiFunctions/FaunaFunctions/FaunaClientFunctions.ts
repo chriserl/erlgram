@@ -1,6 +1,6 @@
 import * as faunadb from "faunadb";
 
-const { Select, Get, Match, Index, Map, Lambda, Var } = faunadb.query;
+const { Select, Get, Match, Index, Map, Lambda, Var, Logout } = faunadb.query;
 
 export class FaunaClientFunctions {
 	constructor(private faunaKey: string) {}
@@ -45,4 +45,8 @@ export class FaunaClientFunctions {
 			)
 			.then((faunaResponse) => faunaResponse)
 			.catch((e) => "Unauthorized");
+
+	signOut = async () => {
+		this.faunaClient.query(Logout(true)).catch(() => "faunaError");
+	};
 }

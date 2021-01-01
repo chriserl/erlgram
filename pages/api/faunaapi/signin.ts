@@ -10,6 +10,11 @@ export default async (request, response) => {
 
 	if (signInReponse === "faunaError") {
 		response.send(JSON.stringify({ apiResponse: "apiError" }));
+	} else if (
+		signInReponse["userAccount"]["account"] === "resourceUnavailable" ||
+		signInReponse["userAccount"]["account"] === "resourceUnavailable"
+	) {
+		response.send(JSON.stringify({ apiResponse: "apiError" }));
 	} else {
 		response.setHeader("Set-Cookie", [
 			serialize("FID", signInReponse["authToken"], {

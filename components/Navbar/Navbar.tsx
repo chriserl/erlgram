@@ -1,4 +1,5 @@
 import React, { useReducer, useState, useContext, useEffect } from "react";
+import { useRouter } from "next/router";
 import axios from "axios";
 import ImageKit from "imagekit-javascript";
 import { GlobalContext } from "../../Contexts/GlobalContext";
@@ -37,11 +38,19 @@ let imagekit = new ImageKit({
 export default function Navbar({ cardControl }: NavbarProps) {
 	let [newPostCard, setNewPostCard] = useState(() => "postCardHidden");
 
+	const [accountModalState, setAccountModalState] = useState(() => "noModal");
+
 	let [GlobalState, dispatchGlobalState] = useContext(GlobalContext);
 
 	const toggleNewPostCard = () => {
 		setNewPostCard(() =>
 			newPostCard === "postCardHidden" ? "postCardVisible" : "postCardHidden"
+		);
+	};
+
+	const toggleAccountModal = () => {
+		setAccountModalState(() =>
+			accountModalState === "noModal" ? "accountModal" : "noModal"
 		);
 	};
 
@@ -63,7 +72,10 @@ export default function Navbar({ cardControl }: NavbarProps) {
 			.then((apiResponse) =>
 				dispatchGlobalState({
 					type: "UPDATE",
-					payload: { ...apiResponse.data["apiResponse"], authorized: true },
+					payload: {
+						...apiResponse.data["apiResponse"],
+						authorized: true,
+					},
 				})
 			)
 			.catch((apiError) => console.error(apiError));
@@ -101,6 +113,16 @@ export default function Navbar({ cardControl }: NavbarProps) {
 			.catch((apiError) => console.error(apiError));
 
 		accountCardDispatch({});
+	};
+
+	const router = useRouter();
+
+	const signOut = async () => {
+		toggleAccountModal();
+		dispatchGlobalState({ type: "CLEAR" });
+		router && router.push("/");
+
+		await axios.post("/api/faunaapi/signout").catch((apiError) => apiError);
 	};
 
 	const uploadPost = async (post: PostShape) => {
@@ -207,7 +229,12 @@ export default function Navbar({ cardControl }: NavbarProps) {
 						</li>
 					) : (
 						<li className={navbarStyles.navItem}>
-							<AccountCard accountData={GlobalState} />
+							<AccountCard
+								accountData={GlobalState}
+								toggleModal={() => toggleAccountModal()}
+								modalState={accountModalState}
+								signOutAction={() => signOut()}
+							/>
 						</li>
 					)}
 				</ul>
