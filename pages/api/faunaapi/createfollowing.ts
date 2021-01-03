@@ -18,7 +18,7 @@ export default async (request, response) => {
 			);
 			followingResponse === "faunaError"
 				? response.json({ apiResponse: "apiError" })
-				: response.staus(200).json({ apiResponse: "followingCreated" });
+				: response.status(200).json({ apiResponse: "followingCreated" });
 		}
 	} else {
 		response.status(401).send(JSON.stringify({ apiResponse: "Unauthorized" }));

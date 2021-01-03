@@ -1,36 +1,38 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useReducer } from "react";
 import { createFollowing } from "../../../lib/ts/interfaces";
 import { GlobalContext } from "../../../Contexts/GlobalContext";
 import { useReauthorizeUser, useFetch } from "../../../lib/hooks/react";
 import Navbar from "../../../components/Navbar/Navbar";
 import profileStyles from "./profile.module.scss";
-import { get } from "https";
 
 interface profileData {
 	account?: { userEmail?: string; userLink?: string; userName?: string };
 	stats?: {
 		postsCount?: string;
-		followersCount?: string;
-		followingCount?: string;
+		followersCount?: number;
+		followingCount?: number;
 	};
+}
+
+interface profileDataAction {
+	type: "FOLLOW" | "UNFOLLOW" | "UPDATE";
+	payload?: profileData;
 }
 
 export default function UserProfile() {
 	const router = useRouter();
+
+	const userHandle = useRouter().asPath;
+
+	let creator: string;
 
 	useReauthorizeUser();
 
 	let [GlobalState, dispatchGlobalState] = useContext(GlobalContext);
 
 	let [isFollowing, setIsFollowing] = useState(() => false);
-
-	const [profileData, setProfileData] = useState<profileData>({});
-
-	const userHandle = useRouter().asPath;
-
-	let creator: string;
 
 	const createFollowing = async (followingData: createFollowing) => {
 		await axios
@@ -39,32 +41,58 @@ export default function UserProfile() {
 			.catch((apiError) => console.error(apiError));
 	};
 
-	const handleFollowing = () => {
-		if (GlobalState.account.userLink) {
-			GlobalState.account.userLink &&
-				createFollowing({
-					creatorLink: userHandle.slice(9),
-					followerLink: GlobalState.account.userLink,
-				});
-			setIsFollowing(() => (isFollowing === true ? false : true));
+	const profileDataReducer = (
+		oldProfileData: profileData,
+		action: profileDataAction
+	): profileData => {
+		switch (action.type) {
+			case "UPDATE":
+				return { ...action.payload };
+
+			case "FOLLOW":
+				if (GlobalState.account) {
+					GlobalState.account.userLink &&
+						createFollowing({
+							creatorLink: userHandle.slice(9),
+							followerLink: GlobalState.account.userLink,
+						});
+					console.log(isFollowing);
+					setIsFollowing(() => true);
+				}
+				return oldProfileData;
+
+			case "UNFOLLOW":
+				if (GlobalState.account) {
+					GlobalState.account.userLink &&
+						createFollowing({
+							creatorLink: userHandle.slice(9),
+							followerLink: GlobalState.account.userLink,
+						});
+					console.log(isFollowing);
+
+					setIsFollowing(() => false);
+				}
+				return oldProfileData;
 		}
 	};
 
-	const getProfile = async (creatorLink: any) => {
+	const [profileData, dispatchProfileData] = useReducer(profileDataReducer, {});
+
+	const getProfile = async (creatorLink: string) => {
 		await axios
 			.post("/api/faunaapi/getprofile", {
 				creatorLink,
 			})
 			.then((apiResponse) => {
-				setProfileData(() => apiResponse.data);
+				dispatchProfileData({ type: "UPDATE", payload: apiResponse.data });
 			})
 			.catch((apiError) => console.error(apiError));
 	};
 
 	async function getFollowingStatus(creatorLink: string, followerLink: string) {
 		const following = await useFetch("faunaapi/checkfollowing", {
-			creatorLink: "chriserl",
-			followerLink: "braimah",
+			creatorLink: creatorLink,
+			followerLink: followerLink,
 		});
 
 		following === true && setIsFollowing(() => true);
@@ -79,7 +107,7 @@ export default function UserProfile() {
 			GlobalState.account &&
 				getFollowingStatus(creator, GlobalState.account.userLink);
 		}
-	}, [GlobalState]);
+	}, [GlobalState, isFollowing]);
 
 	return (
 		<div className={profileStyles.userProfile}>
@@ -127,7 +155,11 @@ export default function UserProfile() {
 								className={`${
 									isFollowing ? "secondary-button psb" : "primary-button psb"
 								} ${profileStyles.followButton}`}
-								onClick={() => handleFollowing()}
+								onClick={() =>
+									dispatchProfileData({
+										type: isFollowing === true ? "UNFOLLOW" : "FOLLOW",
+									})
+								}
 							>
 								{isFollowing ? "Unfollow" : "Follow"}
 							</button>

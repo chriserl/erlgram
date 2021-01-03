@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
 	function GlobalContextReducer(
 		oldGlobalState: GlobalAccountShape,
 		action: GlobalContextReducerAction
-	) {
+	): GlobalAccountShape {
 		switch (action.type) {
 			case "CLEAR":
 				return { authorized: false };

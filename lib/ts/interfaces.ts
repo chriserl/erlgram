@@ -84,5 +84,5 @@ export interface createFollowing {
 
 export interface GlobalContextReducerAction {
 	type: "UPDATE" | "CLEAR";
-	payload?: { userEmail: string; userLink: string; userName: string };
+	payload?: GlobalAccountShape;
 }

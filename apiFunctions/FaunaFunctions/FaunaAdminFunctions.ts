@@ -408,6 +408,8 @@ export class FaunaAdminFunctions {
 			followingData.followerLink
 		);
 
+		console.log(isFollowing);
+
 		if (!isFollowing || isFollowing === "faunaError") {
 			return await this.appendFollowingToCreator(
 				followingData.creatorLink,

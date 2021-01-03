@@ -164,7 +164,7 @@ export default function Navbar({ cardControl }: NavbarProps) {
 
 	useEffect(() => {
 		cardControl && accountCardDispatch(cardControl);
-	}, [cardControl]);
+	}, [cardControl, GlobalState]);
 
 	return (
 		<React.Fragment>
