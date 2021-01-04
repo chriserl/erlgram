@@ -13,19 +13,19 @@
 	@extend .button;
 	padding: 0.4rem;
 	border-radius: 50%;
-	border: 1.4px solid $theme-main-400;
+	border: 1.4px solid $main-800;
 	transition: all 0.25s ease;
 
 	span {
 		padding: $spacing-2;
 		border-radius: 50%;
-		color: $theme-main-100;
+		color: $main-900;
 		background: $theme-gradient;
 	}
 
 	&:hover {
-		color: $theme-main-900;
-		border: 1.4px solid hsl(22, 94%, 50%);
+		color: $main-900;
+		border: 1.4px solid $theme-main;
 
 		span {
 			box-shadow: -8px 12px 24px hsl(22, 94%, 96%);
@@ -38,15 +38,15 @@
 	padding: 0.32rem;
 	border-radius: $spacing-4;
 	background-color: white;
-	color: $theme-main-900;
+	color: $main-100;
 	transition: all 0.25s ease;
 
 	&:hover {
-		box-shadow: 8px 12px 12px 4px $theme-main-200;
-		color: hsl(16, 100%, 50%);
+		filter: drop-shadow(2px 12px 16px $effect-400);
+		color: $theme-main;
 
 		span {
-			filter: drop-shadow(2px 2px 12px $theme-yellow);
+			filter: drop-shadow(2px 2px 12px $effect-400);
 		}
 	}
 }
@@ -60,13 +60,13 @@
 //Text Buttons
 .primary-button {
 	@extend .button;
-	padding: $spacing-2 $spacing-7;
-	border-radius: $spacing-3;
+	padding: $spacing-2 $spacing-9;
+	border-radius: $spacing-4;
 	background: $theme-gradient;
-	color: $theme-main-100;
+	color: $gray-900;
 
 	&:hover {
-		background: $theme-gradient-reversed;
+		filter: drop-shadow(2px 9.6px 8px $effect-100);
 	}
 }
 
@@ -74,23 +74,15 @@
 	@extend .button;
 	padding: $spacing-2 $spacing-7;
 	border-radius: $spacing-4;
-	background: hsl(12, 100%, 96%);
-	color: $theme-yellow;
+	background: $main-900;
+	color: $theme-main;
 
 	&:hover {
-		box-shadow: 8px 16px 12px $theme-main-200;
+		filter: drop-shadow(6px 7.2px 16px $effect-400);
 	}
-}
-
-.light-theme-button {
-	@extend .button;
-	color: $theme-main;
-	padding: $spacing-1 $spacing-4;
-	background: $theme-main-300;
-	border-radius: $spacing-3;
 }
 
 .link-button {
 	@extend .button;
-	color: $theme-yellow;
+	color: $theme-main;
 }

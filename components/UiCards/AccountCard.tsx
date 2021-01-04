@@ -26,11 +26,9 @@ export default function AccountCard({
 				</div>
 
 				<div className="account-content">
-					<span className={"bi-at large-icon at-icon"}></span>
-
 					<div className="main-content">
-						<p className="plb">{accountData.account.userName}</p>
-						<p className="psm">{`@${accountData.account.userLink}`}</p>
+						<p className="plb user-name">{accountData.account.userName}</p>
+						<p className="pxm user-link">{`@${accountData.account.userLink}`}</p>
 
 						<div className="stats">
 							<span className="stat">
@@ -54,7 +52,7 @@ export default function AccountCard({
 						<div className="cta">
 							<button
 								onClick={() => signOutAction()}
-								className="secondary-button psb"
+								className="secondary-button psm"
 							>
 								sign out
 							</button>

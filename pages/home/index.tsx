@@ -23,7 +23,7 @@ export default function Home() {
 						className={`large-icon bi-hexagon brand-icon ${homeStyles.brandIcon}`}
 					></span>
 					<div className={homeStyles.textContent}>
-						<p className={`plb ${homeStyles.auxText}`}>
+						<p className={`plm ${homeStyles.auxText}`}>
 							experience the new flavour of instagram
 						</p>
 						<p className={homeStyles.mainText}>erlgram</p>
@@ -31,14 +31,14 @@ export default function Home() {
 					<div className={homeStyles.ctas}>
 						<button
 							onClick={() => handleCardType("SIGNUP")}
-							className={`primary-button psm ${homeStyles.signup}`}
+							className={`primary-button ps ${homeStyles.signup}`}
 						>
 							Signup
 						</button>
 
 						<button
 							onClick={() => handleCardType("SIGNIN")}
-							className={`secondary-button psm ${homeStyles.signin}`}
+							className={`secondary-button ps ${homeStyles.signin}`}
 						>
 							Signin
 						</button>

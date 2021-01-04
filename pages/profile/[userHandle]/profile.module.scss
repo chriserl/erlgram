@@ -21,30 +21,17 @@
 				margin-left: $spacing-1;
 				font-weight: 600;
 				letter-spacing: 0.06rem;
-				color: $theme-main-800;
-			}
-
-			.profileLink {
-				color: $gray-400;
+				color: $gray-300;
 			}
 		}
 
 		.profileSummary {
 			@include flex($align: flex-start);
 
-			.profileImageContainer {
-				display: flex(row, center, center);
-				margin-bottom: $spacing-8;
-
-				.profileImage {
-					width: $spacing-15;
-					height: $spacing-15;
-					border-radius: 50%;
-
-					@include tab-screen {
-						width: $spacing-20;
-						height: $spacing-20;
-					}
+			.profileIconButton {
+				.profileIcon {
+					font-size: 2.4rem;
+					line-height: 1rem;
 				}
 			}
 
@@ -72,13 +59,13 @@
 						}
 
 						h6:nth-child(1) {
-							color: $theme-main-800;
+							color: $gray-200;
 							font-weight: 600;
 							margin-bottom: $spacing-1;
 						}
 
 						p:nth-child(2) {
-							color: $gray-400;
+							color: $gray-500;
 						}
 					}
 				}

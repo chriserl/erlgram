@@ -48,12 +48,12 @@ export default function SignInCard({ emptyAccountAction, signInAction }) {
 					<span
 						className={"bi-hexagon medium-icon brand-icon brandIcon"}
 					></span>
-					<h5 className="brandName">erlgram</h5>
+					<h4 className="brandName">erlgram</h4>
 				</a>
 
 				<form className="signin-form" onSubmit={(event) => handleSubmit(event)}>
 					<div className="text-control">
-						<span className="bi-envelope-fill small-icon"></span>
+						<span className="bi-envelope small-icon"></span>
 						<input
 							value={formState.userEmail}
 							onChange={(event) =>
@@ -86,14 +86,14 @@ export default function SignInCard({ emptyAccountAction, signInAction }) {
 						/>
 					</div>
 
-					<button className="primary-button pxb sign-in-button" type="submit">
+					<button className="primary-button pxm sign-in-button" type="submit">
 						Sign in
 					</button>
 
 					<p className="px alt-text">
-						no account?
+						No account?
 						<button
-							className="link-button pxb"
+							className="link-button pxm"
 							onClick={() => emptyAccountAction({ type: "SIGNUP" })}
 						>
 							create account

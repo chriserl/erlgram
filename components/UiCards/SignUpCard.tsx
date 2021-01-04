@@ -121,7 +121,7 @@ export default function SignUpCard({ emptyAccountAction, signUpAction }) {
 					</div>
 
 					<div className="text-control">
-						<span className="bi-envelope-fill small-icon"></span>
+						<span className="bi-envelope small-icon"></span>
 						<input
 							value={formState.data.account.userEmail}
 							onChange={(event) =>
@@ -154,14 +154,14 @@ export default function SignUpCard({ emptyAccountAction, signUpAction }) {
 						/>
 					</div>
 
-					<button className="primary-button pxb sign-in-button" type="submit">
+					<button className="primary-button pxm sign-in-button" type="submit">
 						Create account
 					</button>
 
 					<p className="px alt-text">
 						Already have an account?
 						<button
-							className="link-button pxb"
+							className="link-button pxm"
 							onClick={() => emptyAccountAction({ type: "SIGNIN" })}
 						>
 							sign in

@@ -121,13 +121,18 @@ export default function UserProfile() {
 						</h5>
 					</div>
 					<div className={profileStyles.profileSummary}>
-						<div className={profileStyles.profileImageContainer}>
+						{/* <div className={profileStyles.profileImageContainer}>
 							<img
 								src="/images/profileimages/jade.jpg"
 								alt="profile"
 								className={profileStyles.profileImage}
 							/>
-						</div>
+						</div> */}
+						<button
+							className={`light-icon-button ${profileStyles.profileIconButton}`}
+						>
+							<span className={`bi-at ${profileStyles.profileIcon}`}></span>
+						</button>
 
 						<div className={profileStyles.profileDetails}>
 							<div className={profileStyles.profileStats}>
@@ -152,8 +157,8 @@ export default function UserProfile() {
 							</div>
 
 							<button
-								className={`${
-									isFollowing ? "secondary-button psb" : "primary-button psb"
+								className={`psm ${
+									isFollowing ? "secondary-button" : "primary-button"
 								} ${profileStyles.followButton}`}
 								onClick={() =>
 									dispatchProfileData({

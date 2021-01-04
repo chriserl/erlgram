@@ -2,15 +2,15 @@
 	@include flex;
 	width: 100%;
 	border-radius: $spacing-4;
-	background-color: $theme-main-200;
+	background-color: $gray-900;
 
 	.search-input {
 		width: 100%;
 		border: none;
 		padding: $spacing-2 $spacing-6;
 		background: transparent;
-		color: $theme-main-800;
-		@include psm;
+		color: $gray-300;
+		@include ps;
 
 		&::placeholder {
 			@include px;
@@ -27,13 +27,13 @@
 	@include flex;
 	width: 100%;
 	border-radius: $spacing-4;
-	background-color: $theme-main-200;
+	background-color: $gray-900;
 
 	span {
-		color: $gray-400;
+		color: $gray-500;
 		padding: $spacing-2;
-		background-color: $gray-800;
-		border-radius: $spacing-2;
+		border-radius: $spacing-3;
+		transition: all 0.25s ease;
 	}
 
 	.text-input {
@@ -41,8 +41,8 @@
 		border: none;
 		padding: $spacing-2 $spacing-6;
 		background: transparent;
-		color: $theme-main-800;
-		@include psm;
+		color: $gray-300;
+		@include ps;
 
 		&::placeholder {
 			@include pxm;
@@ -56,8 +56,8 @@
 
 	&:focus-within {
 		span {
-			margin-top: -1.14rem;
-			filter: drop-shadow(4px 4px 8px $gray-700);
+			margin-top: -0.88rem;
+			color: $gray-300;
 		}
 	}
 }
@@ -73,15 +73,20 @@
 .textarea-control {
 	width: 100%;
 	border-radius: $spacing-4;
-	background-color: $theme-main-200;
+	background-color: $gray-900;
 
 	textarea {
 		border: none;
 		background: transparent;
-		padding: $spacing-2 $spacing-5;
+		padding: $spacing-3 $spacing-6;
 		resize: none;
-		@include psm;
+		color: $gray-300;
+		@include ps;
 		@include scroll-hide;
+
+		&::placeholder {
+			@include ps;
+		}
 
 		&:focus {
 			outline: none;
